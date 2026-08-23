@@ -281,38 +281,6 @@
             color: var(--accent-blue);
         }
 
-        /* ---------- Category pills ---------- */
-        .category-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 12px;
-            margin-top: 6px;
-        }
-
-        .cat-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 13px;
-            font-weight: 500;
-            background: var(--bg-pill);
-            padding: 2px 12px 2px 8px;
-            border-radius: 30px;
-            color: var(--text-dark);
-        }
-
-        .cat-pill .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .cat-pill .amt {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
         /* ---------- Filters ---------- */
         .filters {
             display: flex;
@@ -585,7 +553,7 @@
                 height: 48px;
             }
             .summary {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
             }
             .filters {
                 flex-direction: column;
@@ -755,6 +723,7 @@
                         <option value="food">🍔 Food</option>
                         <option value="grocery">🛒 Grocery</option>
                         <option value="rent">🏠 Rent</option>
+                        <option value="investment">📈 Investment</option>
                         <option value="loan">🏦 Loan</option>
                         <option value="travelling">✈️ Travelling</option>
                         <option value="shopping">🛍️ Shopping</option>
@@ -762,6 +731,8 @@
                         <option value="utilities">💡 Utilities</option>
                         <option value="healthcare">🏥 Healthcare</option>
                         <option value="education">📚 Education</option>
+                        <option value="insurance">🛡️ Insurance</option>
+                        <option value="subscription">📺 Subscription</option>
                         <option value="other">📌 Other</option>
                     </select>
                 </div>
@@ -784,12 +755,6 @@
                 <div class="value"><span class="currency">₹</span><span id="totalAmount">0.00</span></div>
                 <div class="sub-info" id="totalCount">0 expenses</div>
             </div>
-            <div class="summary-card" id="categorySummary">
-                <div class="label">By Category</div>
-                <div class="category-pills" id="categoryPills">
-                    <span style="color: var(--text-muted); font-size:13px;">No data yet</span>
-                </div>
-            </div>
             <div class="summary-card">
                 <div class="label">This Week</div>
                 <div class="value"><span class="currency">₹</span><span id="weekTotal">0.00</span></div>
@@ -810,6 +775,8 @@
                     <option value="all">All</option>
                     <option value="food">🍔 Food</option>
                     <option value="grocery">🛒 Grocery</option>
+                    <option value="rent">🏠 Rent</option>
+                    <option value="investment">📈 Investment</option>
                     <option value="loan">🏦 Loan</option>
                     <option value="travelling">✈️ Travelling</option>
                     <option value="shopping">🛍️ Shopping</option>
@@ -817,6 +784,8 @@
                     <option value="utilities">💡 Utilities</option>
                     <option value="healthcare">🏥 Healthcare</option>
                     <option value="education">📚 Education</option>
+                    <option value="insurance">🛡️ Insurance</option>
+                    <option value="subscription">📺 Subscription</option>
                     <option value="other">📌 Other</option>
                 </select>
             </div>
@@ -859,10 +828,58 @@
         (function() {
             'use strict';
 
-            // --- Constants ---
-            const CATEGORY_COLORS = { food: '#e67e22', grocery: '#2ecc71', loan: '#e74c3c', travelling: '#3498db', shopping: '#9b59b6', entertainment: '#f1c40f', utilities: '#1abc9c', healthcare: '#e84393', education: '#fd79a8', other: '#636e72' };
-            const CATEGORY_NAMES = { food: 'Food', grocery: 'Grocery', loan: 'Loan', travelling: 'Travelling', shopping: 'Shopping', entertainment: 'Entertainment', utilities: 'Utilities', healthcare: 'Healthcare', education: 'Education', other: 'Other' };
-            const CATEGORY_EMOJIS = { food: '🍔', grocery: '🛒', loan: '🏦', travelling: '✈️', shopping: '🛍️', entertainment: '🎬', utilities: '💡', healthcare: '🏥', education: '📚', other: '📌' };
+            // --- Constants with new categories ---
+            const CATEGORY_COLORS = {
+                food: '#e67e22',
+                grocery: '#2ecc71',
+                rent: '#e74c3c',
+                investment: '#1abc9c',
+                loan: '#e74c3c',
+                travelling: '#3498db',
+                shopping: '#9b59b6',
+                entertainment: '#f1c40f',
+                utilities: '#1abc9c',
+                healthcare: '#e84393',
+                education: '#fd79a8',
+                insurance: '#00b894',
+                subscription: '#6c5ce7',
+                other: '#636e72'
+            };
+
+            const CATEGORY_NAMES = {
+                food: 'Food',
+                grocery: 'Grocery',
+                rent: 'Rent',
+                investment: 'Investment',
+                loan: 'Loan',
+                travelling: 'Travelling',
+                shopping: 'Shopping',
+                entertainment: 'Entertainment',
+                utilities: 'Utilities',
+                healthcare: 'Healthcare',
+                education: 'Education',
+                insurance: 'Insurance',
+                subscription: 'Subscription',
+                other: 'Other'
+            };
+
+            const CATEGORY_EMOJIS = {
+                food: '🍔',
+                grocery: '🛒',
+                rent: '🏠',
+                investment: '📈',
+                loan: '🏦',
+                travelling: '✈️',
+                shopping: '🛍️',
+                entertainment: '🎬',
+                utilities: '💡',
+                healthcare: '🏥',
+                education: '📚',
+                insurance: '🛡️',
+                subscription: '📺',
+                other: '📌'
+            };
+
             const STORAGE_KEY = 'expenseTrackerData';
 
             // --- State ---
@@ -883,7 +900,6 @@
             const weekCount = document.getElementById('weekCount');
             const monthTotal = document.getElementById('monthTotal');
             const monthCount = document.getElementById('monthCount');
-            const categoryPills = document.getElementById('categoryPills');
             const filterCategory = document.getElementById('filterCategory');
             const filterWeek = document.getElementById('filterWeek');
             const filterMonth = document.getElementById('filterMonth');
@@ -1150,29 +1166,6 @@
                 totalAmount.textContent = total.toFixed(2);
                 totalCount.textContent = `${filteredExpenses.length} expense${filteredExpenses.length !== 1 ? 's' : ''}`;
 
-                const catMap = {};
-                for (const e of expenses) {
-                    catMap[e.category] = (catMap[e.category] || 0) + e.amount;
-                }
-                const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
-                if (sortedCats.length === 0) {
-                    categoryPills.innerHTML = `<span style="color: var(--text-muted); font-size:13px;">No data yet</span>`;
-                } else {
-                    let pillsHtml = '';
-                    for (const [cat, amt] of sortedCats) {
-                        const color = CATEGORY_COLORS[cat] || '#636e72';
-                        const emoji = CATEGORY_EMOJIS[cat] || '📌';
-                        const name = CATEGORY_NAMES[cat] || cat;
-                        pillsHtml += `
-                            <span class="cat-pill">
-                                <span class="dot" style="background:${color};"></span>
-                                ${emoji} ${name} <span class="amt">₹${amt.toFixed(2)}</span>
-                            </span>
-                        `;
-                    }
-                    categoryPills.innerHTML = pillsHtml;
-                }
-
                 const today = todayStr();
                 const weekExpenses = expenses.filter(e => isSameWeek(e.date, today));
                 const weekSum = weekExpenses.reduce((s, e) => s + e.amount, 0);
@@ -1241,7 +1234,7 @@
                 }, 2200);
             }
 
-            // --- Form Submit (ADD BUTTON) ---
+            // --- Form Submit ---
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
