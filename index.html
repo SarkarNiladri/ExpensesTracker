@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>💰 Expense Tracker (₹)</title>
+    <title>💰 Expense Tracker (₹) - Dark</title>
     <style>
+        /* ---------- Dark Theme Variables ---------- */
+        :root {
+            --bg-body: #0d1117;
+            --bg-app: #161b22;
+            --bg-section: #1c2333;
+            --bg-card: #1c2333;
+            --bg-input: #0d1117;
+            --bg-hover: #1f242f;
+            --bg-pill: #21262d;
+            --bg-table-header: #1c2333;
+            --border-color: #30363d;
+            --border-light: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #484f58;
+            --text-dark: #c9d1d9;
+            --accent-blue: #58a6ff;
+            --accent-blue-hover: #1f6feb;
+            --accent-red: #f85149;
+            --accent-green: #3fb950;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-hover: 0 8px 32px rgba(88, 166, 255, 0.15);
+        }
+
         /* ---------- Reset & Base ---------- */
         * {
             margin: 0;
@@ -14,21 +38,23 @@
         }
 
         body {
-            background: #f0f4f8;
+            background: var(--bg-body);
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            color: var(--text-primary);
         }
 
         .app {
             max-width: 1100px;
             width: 100%;
-            background: #ffffff;
+            background: var(--bg-app);
             border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+            box-shadow: var(--shadow);
             padding: 30px 32px 40px;
+            border: 1px solid var(--border-color);
             transition: all 0.2s;
         }
 
@@ -39,7 +65,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
-            border-bottom: 2px solid #eef2f6;
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 18px;
         }
 
@@ -53,7 +79,7 @@
         .header-left h1 {
             font-size: 28px;
             font-weight: 700;
-            color: #0b1e33;
+            color: var(--text-primary);
             letter-spacing: -0.3px;
         }
 
@@ -63,7 +89,7 @@
 
         .header-left .sub {
             font-size: 14px;
-            color: #6b7a8d;
+            color: var(--text-secondary);
             font-weight: 400;
             margin-left: 4px;
         }
@@ -76,13 +102,13 @@
         }
 
         .current-month-badge {
-            background: #eef5fe;
-            border: 1px solid #b3ccf7;
+            background: var(--bg-section);
+            border: 1px solid var(--accent-blue);
             border-radius: 40px;
             padding: 6px 20px 6px 18px;
             font-size: 15px;
             font-weight: 600;
-            color: #1f3a6b;
+            color: var(--accent-blue);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -95,9 +121,9 @@
         }
 
         .reset-btn {
-            background: #fee9e7;
+            background: #2d1b1e;
             border: none;
-            color: #b3413a;
+            color: var(--accent-red);
             padding: 8px 18px;
             border-radius: 40px;
             font-size: 14px;
@@ -111,17 +137,17 @@
         }
 
         .reset-btn:hover {
-            background: #fdd5d2;
+            background: #3d1a1a;
             transform: scale(1.02);
         }
 
         /* ---------- Form ---------- */
         .form-section {
-            background: #f7faff;
+            background: var(--bg-section);
             border-radius: 18px;
             padding: 22px 24px;
             margin-bottom: 28px;
-            border: 1px solid #e6edf5;
+            border: 1px solid var(--border-color);
         }
 
         .form-row {
@@ -140,7 +166,7 @@
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-secondary);
             margin-bottom: 4px;
             letter-spacing: 0.3px;
         }
@@ -150,26 +176,26 @@
             width: 100%;
             padding: 10px 14px;
             border-radius: 12px;
-            border: 1.5px solid #dbe1e9;
-            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-input);
             font-size: 15px;
             transition: 0.2s;
             outline: none;
-            color: #1a2a3a;
+            color: var(--text-dark);
         }
 
         .form-group input:focus,
         .form-group select:focus {
-            border-color: #4f7df3;
-            box-shadow: 0 0 0 4px rgba(79, 125, 243, 0.12);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.12);
         }
 
         .form-group input::placeholder {
-            color: #a0b0c2;
+            color: var(--text-muted);
         }
 
         .add-btn {
-            background: #4f7df3;
+            background: var(--accent-blue);
             border: none;
             color: #fff;
             font-weight: 600;
@@ -181,16 +207,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 14px rgba(79, 125, 243, 0.30);
+            box-shadow: 0 4px 14px rgba(88, 166, 255, 0.30);
             flex: 0 0 auto;
             height: 46px;
             align-self: flex-end;
         }
 
         .add-btn:hover {
-            background: #3a65d9;
+            background: var(--accent-blue-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 125, 243, 0.35);
+            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.35);
         }
 
         .add-btn:active {
@@ -206,22 +232,22 @@
         }
 
         .summary-card {
-            background: #fafcff;
+            background: var(--bg-card);
             border-radius: 16px;
             padding: 16px 18px 14px;
-            border: 1px solid #eaf0f6;
+            border: 1px solid var(--border-color);
             transition: 0.2s;
         }
 
         .summary-card:hover {
-            border-color: #cddbe9;
-            background: #ffffff;
+            border-color: var(--text-muted);
+            background: var(--bg-hover);
         }
 
         .summary-card .label {
             font-size: 13px;
             font-weight: 500;
-            color: #6f7f92;
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.4px;
         }
@@ -229,33 +255,33 @@
         .summary-card .value {
             font-size: 26px;
             font-weight: 700;
-            color: #0b1e33;
+            color: var(--text-primary);
             margin-top: 4px;
         }
 
         .summary-card .value .currency {
             font-size: 16px;
             font-weight: 500;
-            color: #6f7f92;
+            color: var(--text-secondary);
             margin-right: 2px;
         }
 
         .summary-card .sub-info {
             font-size: 13px;
-            color: #7d8fa3;
+            color: var(--text-muted);
             margin-top: 2px;
         }
 
         .summary-card.highlight {
-            background: #eef5fe;
-            border-color: #b3ccf7;
+            background: #1f2d4a;
+            border-color: var(--accent-blue);
         }
 
         .summary-card.highlight .value {
-            color: #2a5fd1;
+            color: var(--accent-blue);
         }
 
-        /* ---------- Category pills in summary ---------- */
+        /* ---------- Category pills ---------- */
         .category-pills {
             display: flex;
             flex-wrap: wrap;
@@ -269,10 +295,10 @@
             gap: 4px;
             font-size: 13px;
             font-weight: 500;
-            background: #eef2f8;
+            background: var(--bg-pill);
             padding: 2px 12px 2px 8px;
             border-radius: 30px;
-            color: #1f3347;
+            color: var(--text-dark);
         }
 
         .cat-pill .dot {
@@ -284,7 +310,7 @@
 
         .cat-pill .amt {
             font-weight: 600;
-            color: #0b1e33;
+            color: var(--text-primary);
         }
 
         /* ---------- Filters ---------- */
@@ -295,7 +321,7 @@
             align-items: center;
             margin-bottom: 20px;
             padding: 14px 0 10px;
-            border-top: 1px solid #eef2f6;
+            border-top: 1px solid var(--border-color);
         }
 
         .filters .filter-group {
@@ -307,59 +333,61 @@
         .filters .filter-group label {
             font-size: 14px;
             font-weight: 500;
-            color: #3b4d62;
+            color: var(--text-secondary);
         }
 
         .filters .filter-group select {
             padding: 7px 14px;
             border-radius: 30px;
-            border: 1.5px solid #dbe1e9;
-            background: #fff;
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-input);
             font-size: 14px;
             outline: none;
             cursor: pointer;
             transition: 0.2s;
-            color: #1a2a3a;
+            color: var(--text-dark);
+            min-width: 150px;
         }
 
         .filters .filter-group select:focus {
-            border-color: #4f7df3;
-            box-shadow: 0 0 0 3px rgba(79, 125, 243, 0.10);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.10);
         }
 
         .filters .filter-group select option {
-            padding: 6px;
+            background: var(--bg-app);
+            color: var(--text-dark);
         }
 
         .clear-filter-btn {
-            background: #eef2f8;
+            background: var(--bg-pill);
             border: none;
             padding: 6px 18px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
-            color: #4a5d72;
+            color: var(--text-secondary);
             cursor: pointer;
             transition: 0.2s;
         }
 
         .clear-filter-btn:hover {
-            background: #dde3ec;
+            background: var(--border-color);
         }
 
         .filter-stats {
             margin-left: auto;
             font-size: 14px;
-            color: #5a6f83;
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
-        /* ---------- Expense Table ---------- */
+        /* ---------- Table ---------- */
         .table-wrap {
             overflow-x: auto;
             border-radius: 16px;
-            border: 1px solid #eaf0f6;
-            background: #fafcff;
+            border: 1px solid var(--border-color);
+            background: var(--bg-app);
         }
 
         .expense-table {
@@ -369,21 +397,21 @@
         }
 
         .expense-table th {
-            background: #f2f6fc;
+            background: var(--bg-table-header);
             text-align: left;
             padding: 14px 18px;
             font-weight: 600;
-            color: #2c4056;
+            color: var(--text-secondary);
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            border-bottom: 2px solid #e2eaf2;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .expense-table td {
             padding: 13px 18px;
-            border-bottom: 1px solid #eef2f6;
-            color: #1a2a3a;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-dark);
             vertical-align: middle;
         }
 
@@ -392,7 +420,7 @@
         }
 
         .expense-table tr:hover td {
-            background: #f5f9ff;
+            background: var(--bg-hover);
         }
 
         .expense-table .category-badge {
@@ -401,8 +429,8 @@
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
-            background: #eef2f8;
-            color: #1f3347;
+            background: var(--bg-pill);
+            color: var(--text-dark);
         }
 
         .expense-table .category-badge .dot {
@@ -416,7 +444,7 @@
 
         .expense-table .amount {
             font-weight: 600;
-            color: #0b1e33;
+            color: var(--text-primary);
         }
 
         .expense-table .action-btn {
@@ -428,35 +456,35 @@
             padding: 4px 8px;
             border-radius: 6px;
             margin: 0 2px;
-            color: #6b7f92;
+            color: var(--text-muted);
         }
 
         .expense-table .action-btn:hover {
-            background: #eef2f8;
+            background: var(--bg-pill);
         }
 
         .expense-table .edit-btn:hover {
-            color: #2a5fd1;
-            background: #e3ebfc;
+            color: var(--accent-blue);
+            background: #1f2d4a;
         }
 
         .expense-table .delete-btn:hover {
-            color: #d34a44;
-            background: #fee9e7;
+            color: var(--accent-red);
+            background: #2d1b1e;
         }
 
         .expense-table .empty-row td {
             text-align: center;
             padding: 40px 20px;
-            color: #8b9db0;
+            color: var(--text-muted);
             font-size: 16px;
         }
 
-        /* ---------- Inline Edit Row ---------- */
+        /* ---------- Edit Row ---------- */
         .edit-row td {
             padding: 10px 12px;
-            background: #f7fbff;
-            border-bottom: 2px solid #4f7df3;
+            background: var(--bg-section);
+            border-bottom: 2px solid var(--accent-blue);
         }
 
         .edit-row .edit-field {
@@ -470,19 +498,20 @@
         .edit-row .edit-field select {
             padding: 8px 12px;
             border-radius: 10px;
-            border: 1.5px solid #d0dbe8;
+            border: 1.5px solid var(--border-color);
             font-size: 14px;
-            background: #fff;
+            background: var(--bg-input);
             outline: none;
             transition: 0.2s;
             min-width: 100px;
             flex: 1 1 120px;
+            color: var(--text-dark);
         }
 
         .edit-row .edit-field input:focus,
         .edit-row .edit-field select:focus {
-            border-color: #4f7df3;
-            box-shadow: 0 0 0 3px rgba(79, 125, 243, 0.10);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.10);
         }
 
         .edit-row .edit-field .edit-actions {
@@ -502,23 +531,23 @@
         }
 
         .edit-row .edit-field .edit-actions .save-edit-btn {
-            background: #4f7df3;
+            background: var(--accent-blue);
             color: #fff;
-            box-shadow: 0 2px 10px rgba(79, 125, 243, 0.25);
+            box-shadow: 0 2px 10px rgba(88, 166, 255, 0.25);
         }
 
         .edit-row .edit-field .edit-actions .save-edit-btn:hover {
-            background: #3a65d9;
+            background: var(--accent-blue-hover);
             transform: scale(1.02);
         }
 
         .edit-row .edit-field .edit-actions .cancel-edit-btn {
-            background: #eef2f8;
-            color: #3b4d62;
+            background: var(--bg-pill);
+            color: var(--text-secondary);
         }
 
         .edit-row .edit-field .edit-actions .cancel-edit-btn:hover {
-            background: #dde3ec;
+            background: var(--border-color);
         }
 
         /* ---------- Responsive ---------- */
@@ -565,6 +594,10 @@
             }
             .filters .filter-group {
                 flex-wrap: wrap;
+            }
+            .filters .filter-group select {
+                min-width: 100px;
+                flex: 1;
             }
             .filter-stats {
                 margin-left: 0;
@@ -614,15 +647,15 @@
             height: 6px;
         }
         .table-wrap::-webkit-scrollbar-track {
-            background: #eef2f6;
+            background: var(--bg-body);
             border-radius: 10px;
         }
         .table-wrap::-webkit-scrollbar-thumb {
-            background: #c8d4e2;
+            background: var(--border-color);
             border-radius: 10px;
         }
         .table-wrap::-webkit-scrollbar-thumb:hover {
-            background: #b0c0d0;
+            background: var(--text-muted);
         }
 
         /* ---------- Animations ---------- */
@@ -646,13 +679,14 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: #1f3347;
-            color: #fff;
+            background: var(--bg-card);
+            color: var(--text-primary);
             padding: 14px 32px;
             border-radius: 60px;
             font-size: 15px;
             font-weight: 500;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.20);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
             opacity: 0;
             transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
@@ -663,23 +697,27 @@
             transform: translateX(-50%) translateY(0);
         }
         .toast.success {
-            background: #1e7e34;
+            background: #1b3a2a;
+            color: var(--accent-green);
+            border-color: var(--accent-green);
         }
         .toast.error {
-            background: #b3413a;
+            background: #3d1a1a;
+            color: var(--accent-red);
+            border-color: var(--accent-red);
         }
 
-        /* ---------- Persistence note ---------- */
+        /* ---------- Persistence Note ---------- */
         .persist-note {
             font-size: 12px;
-            color: #7d8fa3;
+            color: var(--text-muted);
             text-align: right;
             margin-top: 12px;
             padding-top: 8px;
-            border-top: 1px dashed #e0e8f0;
+            border-top: 1px dashed var(--border-color);
         }
         .persist-note span {
-            background: #f0f4fa;
+            background: var(--bg-section);
             padding: 2px 12px;
             border-radius: 30px;
             display: inline-block;
@@ -687,9 +725,8 @@
     </style>
 </head>
 <body>
-
     <div class="app" id="app">
-        <!-- Header with current month & year -->
+        <!-- Header -->
         <header class="header">
             <div class="header-left">
                 <span class="emoji">💰</span>
@@ -736,7 +773,7 @@
                     <label for="descInput">Description (optional)</label>
                     <input type="text" id="descInput" placeholder="e.g. Lunch with team" maxlength="60" />
                 </div>
-                <button type="submit" class="add-btn">➕ Add</button>
+                <button type="submit" class="add-btn" id="addBtn">➕ Add</button>
             </form>
         </section>
 
@@ -750,7 +787,7 @@
             <div class="summary-card" id="categorySummary">
                 <div class="label">By Category</div>
                 <div class="category-pills" id="categoryPills">
-                    <span style="color:#8b9db0; font-size:13px;">No data yet</span>
+                    <span style="color: var(--text-muted); font-size:13px;">No data yet</span>
                 </div>
             </div>
             <div class="summary-card">
@@ -785,15 +822,11 @@
             </div>
             <div class="filter-group">
                 <label for="filterWeek">Week</label>
-                <select id="filterWeek">
-                    <option value="all">All</option>
-                </select>
+                <select id="filterWeek"><option value="all">All weeks</option></select>
             </div>
             <div class="filter-group">
                 <label for="filterMonth">Month</label>
-                <select id="filterMonth">
-                    <option value="all">All</option>
-                </select>
+                <select id="filterMonth"><option value="all">All months</option></select>
             </div>
             <button class="clear-filter-btn" id="clearFiltersBtn">✕ Clear filters</button>
             <span class="filter-stats" id="filterStats">Showing <strong>0</strong> expenses</span>
@@ -812,602 +845,489 @@
                     </tr>
                 </thead>
                 <tbody id="expenseBody">
-                    <tr class="empty-row">
-                        <td colspan="5">No expenses recorded yet. Add one above! ✨</td>
-                    </tr>
+                    <tr class="empty-row"><td colspan="5">No expenses recorded yet. Add one above! ✨</td></tr>
                 </tbody>
             </table>
         </div>
-
-        <!-- Persistence note -->
         <div class="persist-note">
-            <span>💾 All data is saved automatically in your browser — view past months using the <strong>Month</strong> filter above.</span>
+            <span>💾 All data is saved automatically — view past months using the <strong>Month</strong> filter above.</span>
         </div>
     </div>
-
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // --------------------------------------------------------------
-        //  Data
-        // --------------------------------------------------------------
-        const CATEGORY_COLORS = {
-            food: '#e67e22',
-            grocery: '#2ecc71',
-            loan: '#e74c3c',
-            travelling: '#3498db',
-            shopping: '#9b59b6',
-            entertainment: '#f1c40f',
-            utilities: '#1abc9c',
-            healthcare: '#e84393',
-            education: '#fd79a8',
-            other: '#636e72'
-        };
+        (function() {
+            'use strict';
 
-        const CATEGORY_NAMES = {
-            food: 'Food',
-            grocery: 'Grocery',
-            loan: 'Loan',
-            travelling: 'Travelling',
-            shopping: 'Shopping',
-            entertainment: 'Entertainment',
-            utilities: 'Utilities',
-            healthcare: 'Healthcare',
-            education: 'Education',
-            other: 'Other'
-        };
+            // --- Constants ---
+            const CATEGORY_COLORS = { food: '#e67e22', grocery: '#2ecc71', loan: '#e74c3c', travelling: '#3498db', shopping: '#9b59b6', entertainment: '#f1c40f', utilities: '#1abc9c', healthcare: '#e84393', education: '#fd79a8', other: '#636e72' };
+            const CATEGORY_NAMES = { food: 'Food', grocery: 'Grocery', loan: 'Loan', travelling: 'Travelling', shopping: 'Shopping', entertainment: 'Entertainment', utilities: 'Utilities', healthcare: 'Healthcare', education: 'Education', other: 'Other' };
+            const CATEGORY_EMOJIS = { food: '🍔', grocery: '🛒', loan: '🏦', travelling: '✈️', shopping: '🛍️', entertainment: '🎬', utilities: '💡', healthcare: '🏥', education: '📚', other: '📌' };
+            const STORAGE_KEY = 'expenseTrackerData';
 
-        const CATEGORY_EMOJIS = {
-            food: '🍔',
-            grocery: '🛒',
-            loan: '🏦',
-            travelling: '✈️',
-            shopping: '🛍️',
-            entertainment: '🎬',
-            utilities: '💡',
-            healthcare: '🏥',
-            education: '📚',
-            other: '📌'
-        };
+            // --- State ---
+            let expenses = [];
+            let filteredExpenses = [];
+            let editingId = null;
 
-        const STORAGE_KEY = 'expenseTrackerData';
+            // --- DOM refs ---
+            const form = document.getElementById('expenseForm');
+            const amountInput = document.getElementById('amountInput');
+            const categorySelect = document.getElementById('categorySelect');
+            const dateInput = document.getElementById('dateInput');
+            const descInput = document.getElementById('descInput');
+            const expenseBody = document.getElementById('expenseBody');
+            const totalAmount = document.getElementById('totalAmount');
+            const totalCount = document.getElementById('totalCount');
+            const weekTotal = document.getElementById('weekTotal');
+            const weekCount = document.getElementById('weekCount');
+            const monthTotal = document.getElementById('monthTotal');
+            const monthCount = document.getElementById('monthCount');
+            const categoryPills = document.getElementById('categoryPills');
+            const filterCategory = document.getElementById('filterCategory');
+            const filterWeek = document.getElementById('filterWeek');
+            const filterMonth = document.getElementById('filterMonth');
+            const filterStats = document.getElementById('filterStats');
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const toast = document.getElementById('toast');
+            const currentMonthLabel = document.getElementById('currentMonthLabel');
 
-        let expenses = [];
-        let filteredExpenses = [];
-        let editingId = null;
+            // --- Helpers ---
+            function todayStr() {
+                return new Date().toISOString().slice(0, 10);
+            }
+            function formatDate(d) {
+                const dt = new Date(d + 'T00:00:00');
+                return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+            function getWeekNumber(d) {
+                const date = new Date(d + 'T00:00:00');
+                const startOfYear = new Date(date.getFullYear(), 0, 1);
+                const days = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000));
+                return Math.ceil((days + startOfYear.getDay() + 1) / 7);
+            }
+            function getWeekLabelFromKey(weekKey) {
+                const parts = weekKey.split('-W');
+                const year = parseInt(parts[0]);
+                const weekNum = parseInt(parts[1]);
+                const jan1 = new Date(year, 0, 1);
+                const jan1Day = jan1.getDay();
+                let firstMonday = new Date(year, 0, 1);
+                const diff = (jan1Day === 0) ? 1 : (8 - jan1Day);
+                firstMonday.setDate(1 + diff);
+                const monday = new Date(firstMonday);
+                monday.setDate(monday.getDate() + (weekNum - 1) * 7);
+                const sunday = new Date(monday);
+                sunday.setDate(sunday.getDate() + 6);
+                return `W${weekNum} (${formatDate(monday.toISOString().slice(0,10))} – ${formatDate(sunday.toISOString().slice(0,10))})`;
+            }
+            function getMonthLabel(d) {
+                const date = new Date(d + 'T00:00:00');
+                return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            }
+            function getMonthKey(d) { return d.slice(0, 7); }
+            function getWeekKey(d) {
+                const date = new Date(d + 'T00:00:00');
+                const weekNum = getWeekNumber(d);
+                return `${date.getFullYear()}-W${String(weekNum).padStart(2, '0')}`;
+            }
+            function isSameWeek(d1, d2) { return getWeekKey(d1) === getWeekKey(d2); }
+            function isSameMonth(d1, d2) { return getMonthKey(d1) === getMonthKey(d2); }
+            function getTodayWeekKey() { return getWeekKey(todayStr()); }
+            function getTodayMonthKey() { return getMonthKey(todayStr()); }
+            function getCurrentMonthLabel() {
+                const now = new Date();
+                return now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            }
 
-        // --------------------------------------------------------------
-        //  DOM refs
-        // --------------------------------------------------------------
-        const form = document.getElementById('expenseForm');
-        const amountInput = document.getElementById('amountInput');
-        const categorySelect = document.getElementById('categorySelect');
-        const dateInput = document.getElementById('dateInput');
-        const descInput = document.getElementById('descInput');
-        const expenseBody = document.getElementById('expenseBody');
-        const totalAmount = document.getElementById('totalAmount');
-        const totalCount = document.getElementById('totalCount');
-        const weekTotal = document.getElementById('weekTotal');
-        const weekCount = document.getElementById('weekCount');
-        const monthTotal = document.getElementById('monthTotal');
-        const monthCount = document.getElementById('monthCount');
-        const categoryPills = document.getElementById('categoryPills');
-        const filterCategory = document.getElementById('filterCategory');
-        const filterWeek = document.getElementById('filterWeek');
-        const filterMonth = document.getElementById('filterMonth');
-        const filterStats = document.getElementById('filterStats');
-        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const toast = document.getElementById('toast');
-        const currentMonthLabel = document.getElementById('currentMonthLabel');
-
-        // --------------------------------------------------------------
-        //  Helpers
-        // --------------------------------------------------------------
-        function todayStr() {
-            return new Date().toISOString().slice(0, 10);
-        }
-
-        function formatDate(d) {
-            const dt = new Date(d + 'T00:00:00');
-            return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
-
-        function getWeekNumber(d) {
-            const date = new Date(d + 'T00:00:00');
-            const startOfYear = new Date(date.getFullYear(), 0, 1);
-            const days = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000));
-            return Math.ceil((days + startOfYear.getDay() + 1) / 7);
-        }
-
-        function getWeekLabel(d) {
-            const date = new Date(d + 'T00:00:00');
-            const weekNum = getWeekNumber(d);
-            const year = date.getFullYear();
-            const dayOfWeek = date.getDay() || 7;
-            const monday = new Date(date);
-            monday.setDate(date.getDate() - dayOfWeek + 1);
-            const sunday = new Date(monday);
-            sunday.setDate(monday.getDate() + 6);
-            return `W${weekNum} (${formatDate(monday.toISOString().slice(0,10))} – ${formatDate(sunday.toISOString().slice(0,10))})`;
-        }
-
-        function getMonthLabel(d) {
-            const date = new Date(d + 'T00:00:00');
-            return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        }
-
-        function getMonthKey(d) {
-            return d.slice(0, 7);
-        }
-
-        function getWeekKey(d) {
-            const date = new Date(d + 'T00:00:00');
-            const weekNum = getWeekNumber(d);
-            return `${date.getFullYear()}-W${String(weekNum).padStart(2, '0')}`;
-        }
-
-        function isSameWeek(d1, d2) {
-            return getWeekKey(d1) === getWeekKey(d2);
-        }
-
-        function isSameMonth(d1, d2) {
-            return getMonthKey(d1) === getMonthKey(d2);
-        }
-
-        function getTodayWeekKey() {
-            return getWeekKey(todayStr());
-        }
-
-        function getTodayMonthKey() {
-            return getMonthKey(todayStr());
-        }
-
-        function getCurrentMonthLabel() {
-            const now = new Date();
-            return now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        }
-
-        // --------------------------------------------------------------
-        //  Storage (persistent)
-        // --------------------------------------------------------------
-        function loadData() {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) {
+            // --- Storage ---
+            function loadData() {
                 try {
-                    expenses = JSON.parse(raw);
-                } catch (_) { expenses = []; }
-            } else {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) {
+                            expenses = parsed.filter(e => e.id && e.amount != null && e.category && e.date);
+                            return;
+                        }
+                    }
+                } catch (_) {}
                 expenses = [];
             }
-            expenses = expenses.filter(e => e.id && e.amount != null && e.category && e.date);
-        }
 
-        function saveData() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
-        }
+            function saveData() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+                } catch (_) {}
+            }
 
-        // --------------------------------------------------------------
-        //  CRUD
-        // --------------------------------------------------------------
-        function addExpense(amount, category, date, description) {
-            const id = Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-            const expense = {
-                id,
-                amount: parseFloat(amount),
-                category,
-                date,
-                description: description.trim() || '',
-                createdAt: new Date().toISOString()
-            };
-            expenses.push(expense);
-            saveData();
-            return expense;
-        }
-
-        function deleteExpense(id) {
-            expenses = expenses.filter(e => e.id !== id);
-            saveData();
-        }
-
-        function updateExpense(id, amount, category, date, description) {
-            const idx = expenses.findIndex(e => e.id === id);
-            if (idx === -1) return false;
-            expenses[idx] = {
-                ...expenses[idx],
-                amount: parseFloat(amount),
-                category,
-                date,
-                description: description.trim() || ''
-            };
-            saveData();
-            return true;
-        }
-
-        function resetAll() {
-            if (expenses.length === 0) return;
-            if (confirm('Delete ALL expenses? This cannot be undone.')) {
-                expenses = [];
+            // --- CRUD ---
+            function addExpense(amount, category, date, description) {
+                const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+                const expense = {
+                    id,
+                    amount: parseFloat(amount),
+                    category,
+                    date,
+                    description: description.trim() || '',
+                    createdAt: new Date().toISOString()
+                };
+                expenses.push(expense);
                 saveData();
-                render();
-                showToast('All expenses cleared', 'success');
-            }
-        }
-
-        // --------------------------------------------------------------
-        //  Filtering
-        // --------------------------------------------------------------
-        function getFiltered() {
-            let list = [...expenses];
-
-            const cat = filterCategory.value;
-            if (cat !== 'all') {
-                list = list.filter(e => e.category === cat);
+                return expense;
             }
 
-            const weekVal = filterWeek.value;
-            if (weekVal !== 'all') {
-                list = list.filter(e => getWeekKey(e.date) === weekVal);
+            function deleteExpense(id) {
+                expenses = expenses.filter(e => e.id !== id);
+                saveData();
             }
 
-            const monthVal = filterMonth.value;
-            if (monthVal !== 'all') {
-                list = list.filter(e => getMonthKey(e.date) === monthVal);
+            function updateExpense(id, amount, category, date, description) {
+                const idx = expenses.findIndex(e => e.id === id);
+                if (idx === -1) return false;
+                expenses[idx] = { ...expenses[idx], amount: parseFloat(amount), category, date, description: description.trim() || '' };
+                saveData();
+                return true;
             }
 
-            list.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
-            return list;
-        }
-
-        // --------------------------------------------------------------
-        //  Render
-        // --------------------------------------------------------------
-        function render() {
-            currentMonthLabel.textContent = getCurrentMonthLabel();
-
-            filteredExpenses = getFiltered();
-            renderTable();
-            renderSummary();
-            renderFilterStats();
-            populateFilterOptions();
-        }
-
-        function renderTable() {
-            if (filteredExpenses.length === 0) {
-                expenseBody.innerHTML = `
-                    <tr class="empty-row">
-                        <td colspan="5">${expenses.length === 0 ? 'No expenses recorded yet. Add one above! ✨' : 'No expenses match the current filters.'}</td>
-                    </tr>
-                `;
-                return;
-            }
-
-            let html = '';
-            for (const e of filteredExpenses) {
-                const color = CATEGORY_COLORS[e.category] || '#636e72';
-                const emoji = CATEGORY_EMOJIS[e.category] || '📌';
-                const catName = CATEGORY_NAMES[e.category] || e.category;
-                const desc = e.description || '—';
-                const isEditing = (editingId === e.id);
-
-                if (isEditing) {
-                    html += `
-                        <tr class="edit-row" data-id="${e.id}">
-                            <td colspan="5">
-                                <div class="edit-field">
-                                    <input type="date" class="edit-date" value="${e.date}" />
-                                    <select class="edit-category">
-                                        ${Object.entries(CATEGORY_NAMES).map(([key, name]) => 
-                                            `<option value="${key}" ${key === e.category ? 'selected' : ''}>${CATEGORY_EMOJIS[key]} ${name}</option>`
-                                        ).join('')}
-                                    </select>
-                                    <input type="text" class="edit-description" value="${e.description || ''}" placeholder="Description" maxlength="60" />
-                                    <input type="number" class="edit-amount" value="${e.amount}" step="0.01" min="0.01" />
-                                    <div class="edit-actions">
-                                        <button class="save-edit-btn" data-id="${e.id}">💾 Save</button>
-                                        <button class="cancel-edit-btn" data-id="${e.id}">Cancel</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                } else {
-                    html += `
-                        <tr data-id="${e.id}">
-                            <td>${formatDate(e.date)}</td>
-                            <td>
-                                <span class="category-badge">
-                                    <span class="dot" style="background:${color};"></span>
-                                    ${emoji} ${catName}
-                                </span>
-                            </td>
-                            <td>${desc}</td>
-                            <td style="text-align:right;" class="amount">₹${e.amount.toFixed(2)}</td>
-                            <td style="text-align:center; white-space:nowrap;">
-                                <button class="action-btn edit-btn" data-id="${e.id}" title="Edit">✏️</button>
-                                <button class="action-btn delete-btn" data-id="${e.id}" title="Delete">🗑️</button>
-                            </td>
-                        </tr>
-                    `;
+            function resetAll() {
+                if (expenses.length === 0) return;
+                if (confirm('Delete ALL expenses? This cannot be undone.')) {
+                    expenses = [];
+                    saveData();
+                    render();
+                    showToast('All expenses cleared', 'success');
                 }
             }
-            expenseBody.innerHTML = html;
 
-            // Event listeners
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    if (editingId === id) editingId = null;
-                    deleteExpense(id);
-                    render();
-                    showToast('Expense deleted', 'success');
-                });
-            });
+            // --- Filtering ---
+            function getFiltered() {
+                let list = [...expenses];
+                const cat = filterCategory.value;
+                if (cat !== 'all') list = list.filter(e => e.category === cat);
+                const weekVal = filterWeek.value;
+                if (weekVal !== 'all') list = list.filter(e => getWeekKey(e.date) === weekVal);
+                const monthVal = filterMonth.value;
+                if (monthVal !== 'all') list = list.filter(e => getMonthKey(e.date) === monthVal);
+                list.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+                return list;
+            }
 
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    editingId = id;
-                    render();
-                });
-            });
+            // --- Render ---
+            function render() {
+                currentMonthLabel.textContent = getCurrentMonthLabel();
+                populateFilterOptions();
+                filteredExpenses = getFiltered();
+                renderTable();
+                renderSummary();
+                renderFilterStats();
+            }
 
-            document.querySelectorAll('.save-edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const row = this.closest('.edit-row');
-                    const dateVal = row.querySelector('.edit-date').value;
-                    const categoryVal = row.querySelector('.edit-category').value;
-                    const descVal = row.querySelector('.edit-description').value;
-                    const amountVal = parseFloat(row.querySelector('.edit-amount').value);
+            function renderTable() {
+                if (filteredExpenses.length === 0) {
+                    expenseBody.innerHTML = `
+                        <tr class="empty-row">
+                            <td colspan="5">${expenses.length === 0 ? 'No expenses recorded yet. Add one above! ✨' : 'No expenses match the current filters.'}</td>
+                        </tr>
+                    `;
+                    return;
+                }
 
-                    if (!dateVal) {
-                        showToast('Date is required', 'error');
-                        return;
+                let html = '';
+                for (const e of filteredExpenses) {
+                    const color = CATEGORY_COLORS[e.category] || '#636e72';
+                    const emoji = CATEGORY_EMOJIS[e.category] || '📌';
+                    const catName = CATEGORY_NAMES[e.category] || e.category;
+                    const desc = e.description || '—';
+                    const isEditing = (editingId === e.id);
+
+                    if (isEditing) {
+                        html += `
+                            <tr class="edit-row" data-id="${e.id}">
+                                <td colspan="5">
+                                    <div class="edit-field">
+                                        <input type="date" class="edit-date" value="${e.date}" />
+                                        <select class="edit-category">
+                                            ${Object.entries(CATEGORY_NAMES).map(([key, name]) =>
+                                                `<option value="${key}" ${key === e.category ? 'selected' : ''}>${CATEGORY_EMOJIS[key]} ${name}</option>`
+                                            ).join('')}
+                                        </select>
+                                        <input type="text" class="edit-description" value="${e.description || ''}" placeholder="Description" maxlength="60" />
+                                        <input type="number" class="edit-amount" value="${e.amount}" step="0.01" min="0.01" />
+                                        <div class="edit-actions">
+                                            <button class="save-edit-btn" data-id="${e.id}">💾 Save</button>
+                                            <button class="cancel-edit-btn" data-id="${e.id}">Cancel</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        html += `
+                            <tr data-id="${e.id}">
+                                <td>${formatDate(e.date)}</td>
+                                <td>
+                                    <span class="category-badge">
+                                        <span class="dot" style="background:${color};"></span>
+                                        ${emoji} ${catName}
+                                    </span>
+                                </td>
+                                <td>${desc}</td>
+                                <td style="text-align:right;" class="amount">₹${e.amount.toFixed(2)}</td>
+                                <td style="text-align:center; white-space:nowrap;">
+                                    <button class="action-btn edit-btn" data-id="${e.id}" title="Edit">✏️</button>
+                                    <button class="action-btn delete-btn" data-id="${e.id}" title="Delete">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
                     }
-                    if (!amountVal || amountVal <= 0) {
-                        showToast('Enter a valid amount', 'error');
-                        return;
-                    }
+                }
+                expenseBody.innerHTML = html;
 
-                    const success = updateExpense(id, amountVal, categoryVal, dateVal, descVal);
-                    if (success) {
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        if (editingId === id) editingId = null;
+                        deleteExpense(id);
+                        render();
+                        showToast('Expense deleted', 'success');
+                    });
+                });
+
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        editingId = id;
+                        render();
+                    });
+                });
+
+                document.querySelectorAll('.save-edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        const row = this.closest('.edit-row');
+                        const dateVal = row.querySelector('.edit-date').value;
+                        const categoryVal = row.querySelector('.edit-category').value;
+                        const descVal = row.querySelector('.edit-description').value;
+                        const amountVal = parseFloat(row.querySelector('.edit-amount').value);
+
+                        if (!dateVal) { showToast('Date is required', 'error'); return; }
+                        if (!amountVal || amountVal <= 0) { showToast('Enter a valid amount', 'error'); return; }
+
+                        if (updateExpense(id, amountVal, categoryVal, dateVal, descVal)) {
+                            editingId = null;
+                            render();
+                            showToast('Expense updated ✅', 'success');
+                        } else {
+                            showToast('Error updating expense', 'error');
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.cancel-edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
                         editingId = null;
                         render();
-                        showToast('Expense updated ✅', 'success');
-                    } else {
-                        showToast('Error updating expense', 'error');
-                    }
+                    });
                 });
-            });
 
-            document.querySelectorAll('.cancel-edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    editingId = null;
-                    render();
+                document.querySelectorAll('.edit-row input, .edit-row select').forEach(el => {
+                    el.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            const saveBtn = this.closest('.edit-row').querySelector('.save-edit-btn');
+                            if (saveBtn) saveBtn.click();
+                        } else if (e.key === 'Escape') {
+                            const cancelBtn = this.closest('.edit-row').querySelector('.cancel-edit-btn');
+                            if (cancelBtn) cancelBtn.click();
+                        }
+                    });
                 });
-            });
-
-            document.querySelectorAll('.edit-row input, .edit-row select').forEach(el => {
-                el.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        const saveBtn = this.closest('.edit-row').querySelector('.save-edit-btn');
-                        if (saveBtn) saveBtn.click();
-                    } else if (e.key === 'Escape') {
-                        const cancelBtn = this.closest('.edit-row').querySelector('.cancel-edit-btn');
-                        if (cancelBtn) cancelBtn.click();
-                    }
-                });
-            });
-        }
-
-        function renderSummary() {
-            const total = expenses.reduce((s, e) => s + e.amount, 0);
-            totalAmount.textContent = total.toFixed(2);
-            totalCount.textContent = `${expenses.length} expense${expenses.length !== 1 ? 's' : ''}`;
-
-            const catMap = {};
-            for (const e of expenses) {
-                catMap[e.category] = (catMap[e.category] || 0) + e.amount;
             }
-            const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
-            if (sortedCats.length === 0) {
-                categoryPills.innerHTML = `<span style="color:#8b9db0; font-size:13px;">No data yet</span>`;
-            } else {
-                let pillsHtml = '';
-                for (const [cat, amt] of sortedCats) {
-                    const color = CATEGORY_COLORS[cat] || '#636e72';
-                    const emoji = CATEGORY_EMOJIS[cat] || '📌';
-                    const name = CATEGORY_NAMES[cat] || cat;
-                    pillsHtml += `
-                        <span class="cat-pill">
-                            <span class="dot" style="background:${color};"></span>
-                            ${emoji} ${name} <span class="amt">₹${amt.toFixed(2)}</span>
-                        </span>
-                    `;
+
+            function renderSummary() {
+                const total = filteredExpenses.reduce((s, e) => s + e.amount, 0);
+                totalAmount.textContent = total.toFixed(2);
+                totalCount.textContent = `${filteredExpenses.length} expense${filteredExpenses.length !== 1 ? 's' : ''}`;
+
+                const catMap = {};
+                for (const e of expenses) {
+                    catMap[e.category] = (catMap[e.category] || 0) + e.amount;
                 }
-                categoryPills.innerHTML = pillsHtml;
+                const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
+                if (sortedCats.length === 0) {
+                    categoryPills.innerHTML = `<span style="color: var(--text-muted); font-size:13px;">No data yet</span>`;
+                } else {
+                    let pillsHtml = '';
+                    for (const [cat, amt] of sortedCats) {
+                        const color = CATEGORY_COLORS[cat] || '#636e72';
+                        const emoji = CATEGORY_EMOJIS[cat] || '📌';
+                        const name = CATEGORY_NAMES[cat] || cat;
+                        pillsHtml += `
+                            <span class="cat-pill">
+                                <span class="dot" style="background:${color};"></span>
+                                ${emoji} ${name} <span class="amt">₹${amt.toFixed(2)}</span>
+                            </span>
+                        `;
+                    }
+                    categoryPills.innerHTML = pillsHtml;
+                }
+
+                const today = todayStr();
+                const weekExpenses = expenses.filter(e => isSameWeek(e.date, today));
+                const weekSum = weekExpenses.reduce((s, e) => s + e.amount, 0);
+                weekTotal.textContent = weekSum.toFixed(2);
+                weekCount.textContent = `${weekExpenses.length} expense${weekExpenses.length !== 1 ? 's' : ''}`;
+
+                const monthExpenses = expenses.filter(e => isSameMonth(e.date, today));
+                const monthSum = monthExpenses.reduce((s, e) => s + e.amount, 0);
+                monthTotal.textContent = monthSum.toFixed(2);
+                monthCount.textContent = `${monthExpenses.length} expense${monthExpenses.length !== 1 ? 's' : ''}`;
             }
 
-            const today = todayStr();
-            const weekExpenses = expenses.filter(e => isSameWeek(e.date, today));
-            const weekSum = weekExpenses.reduce((s, e) => s + e.amount, 0);
-            weekTotal.textContent = weekSum.toFixed(2);
-            weekCount.textContent = `${weekExpenses.length} expense${weekExpenses.length !== 1 ? 's' : ''}`;
-
-            const monthExpenses = expenses.filter(e => isSameMonth(e.date, today));
-            const monthSum = monthExpenses.reduce((s, e) => s + e.amount, 0);
-            monthTotal.textContent = monthSum.toFixed(2);
-            monthCount.textContent = `${monthExpenses.length} expense${monthExpenses.length !== 1 ? 's' : ''}`;
-        }
-
-        function renderFilterStats() {
-            filterStats.innerHTML = `Showing <strong>${filteredExpenses.length}</strong> expense${filteredExpenses.length !== 1 ? 's' : ''}`;
-        }
-
-        function populateFilterOptions() {
-            // Weeks
-            const weekSet = new Set();
-            for (const e of expenses) {
-                weekSet.add(getWeekKey(e.date));
-            }
-            const weekKeys = Array.from(weekSet).sort();
-            const currentWeek = getTodayWeekKey();
-            filterWeek.innerHTML = '<option value="all">All weeks</option>';
-            for (const wk of weekKeys) {
-                const label = getWeekLabel(wk.split('-W')[0] + '-' + wk.split('-W')[1] + '-01');
-                const selected = wk === currentWeek ? 'selected' : '';
-                filterWeek.innerHTML += `<option value="${wk}" ${selected}>${label}</option>`;
+            function renderFilterStats() {
+                filterStats.innerHTML = `Showing <strong>${filteredExpenses.length}</strong> expense${filteredExpenses.length !== 1 ? 's' : ''}`;
             }
 
-            // Months — includes ALL months with data
-            const monthSet = new Set();
-            for (const e of expenses) {
-                monthSet.add(getMonthKey(e.date));
-            }
-            const monthKeys = Array.from(monthSet).sort();
-            const currentMonth = getTodayMonthKey();
-            filterMonth.innerHTML = '<option value="all">All months</option>';
-            for (const mk of monthKeys) {
-                const label = getMonthLabel(mk + '-01');
-                const selected = mk === currentMonth ? 'selected' : '';
-                filterMonth.innerHTML += `<option value="${mk}" ${selected}>${label}</option>`;
-            }
+            function populateFilterOptions() {
+                const weekSet = new Set();
+                for (const e of expenses) weekSet.add(getWeekKey(e.date));
+                const weekKeys = Array.from(weekSet).sort();
+                const prevWeekVal = filterWeek.value;
 
-            if (weekKeys.length === 0) {
                 filterWeek.innerHTML = '<option value="all">All weeks</option>';
-            }
-            if (monthKeys.length === 0) {
+                for (const wk of weekKeys) {
+                    const label = getWeekLabelFromKey(wk);
+                    filterWeek.innerHTML += `<option value="${wk}">${label}</option>`;
+                }
+                if (prevWeekVal === 'all' || filterWeek.querySelector(`option[value="${prevWeekVal}"]`)) {
+                    filterWeek.value = prevWeekVal;
+                } else if (weekKeys.length > 0) {
+                    filterWeek.value = weekKeys[weekKeys.length - 1];
+                } else {
+                    filterWeek.value = 'all';
+                }
+
+                const monthSet = new Set();
+                for (const e of expenses) monthSet.add(getMonthKey(e.date));
+                const monthKeys = Array.from(monthSet).sort();
+                const prevMonthVal = filterMonth.value;
+
                 filterMonth.innerHTML = '<option value="all">All months</option>';
-            }
-        }
-
-        // --------------------------------------------------------------
-        //  Toast
-        // --------------------------------------------------------------
-        let toastTimeout = null;
-
-        function showToast(msg, type = '') {
-            toast.textContent = msg;
-            toast.className = 'toast ' + type;
-            void toast.offsetWidth;
-            toast.classList.add('show');
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2200);
-        }
-
-        // --------------------------------------------------------------
-        //  Form handler
-        // --------------------------------------------------------------
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const amount = parseFloat(amountInput.value);
-            if (!amount || amount <= 0) {
-                showToast('Please enter a valid amount', 'error');
-                amountInput.focus();
-                return;
-            }
-
-            const category = categorySelect.value;
-            const date = dateInput.value;
-            if (!date) {
-                showToast('Please select a date', 'error');
-                dateInput.focus();
-                return;
-            }
-
-            const description = descInput.value.trim();
-
-            addExpense(amount, category, date, description);
-            render();
-
-            amountInput.value = '';
-            descInput.value = '';
-            dateInput.value = todayStr();
-            amountInput.focus();
-
-            showToast(`₹${amount.toFixed(2)} added to ${CATEGORY_NAMES[category] || category}`, 'success');
-        });
-
-        // --------------------------------------------------------------
-        //  Filter change handlers
-        // --------------------------------------------------------------
-        filterCategory.addEventListener('change', () => { editingId = null; render(); });
-        filterWeek.addEventListener('change', () => { editingId = null; render(); });
-        filterMonth.addEventListener('change', () => { editingId = null; render(); });
-
-        clearFiltersBtn.addEventListener('click', function() {
-            filterCategory.value = 'all';
-            const currentWeek = getTodayWeekKey();
-            const weekOpts = filterWeek.querySelectorAll('option');
-            let found = false;
-            for (const opt of weekOpts) {
-                if (opt.value === currentWeek) {
-                    filterWeek.value = currentWeek;
-                    found = true;
-                    break;
+                for (const mk of monthKeys) {
+                    const label = getMonthLabel(mk + '-01');
+                    filterMonth.innerHTML += `<option value="${mk}">${label}</option>`;
+                }
+                if (prevMonthVal === 'all' || filterMonth.querySelector(`option[value="${prevMonthVal}"]`)) {
+                    filterMonth.value = prevMonthVal;
+                } else if (monthKeys.length > 0) {
+                    filterMonth.value = monthKeys[monthKeys.length - 1];
+                } else {
+                    filterMonth.value = 'all';
                 }
             }
-            if (!found) filterWeek.value = 'all';
 
-            const currentMonth = getTodayMonthKey();
-            const monthOpts = filterMonth.querySelectorAll('option');
-            let foundM = false;
-            for (const opt of monthOpts) {
-                if (opt.value === currentMonth) {
-                    filterMonth.value = currentMonth;
-                    foundM = true;
-                    break;
-                }
+            // --- Toast ---
+            let toastTimeout = null;
+
+            function showToast(msg, type = '') {
+                toast.textContent = msg;
+                toast.className = 'toast ' + type;
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2200);
             }
-            if (!foundM) filterMonth.value = 'all';
 
-            editingId = null;
-            render();
-            showToast('Filters cleared', 'success');
-        });
+            // --- Form Submit (ADD BUTTON) ---
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-        // --------------------------------------------------------------
-        //  Reset
-        // --------------------------------------------------------------
-        resetBtn.addEventListener('click', resetAll);
+                try {
+                    const amount = parseFloat(amountInput.value);
+                    if (!amount || amount <= 0) {
+                        showToast('Please enter a valid amount', 'error');
+                        amountInput.focus();
+                        return;
+                    }
 
-        // --------------------------------------------------------------
-        //  Init
-        // --------------------------------------------------------------
-        function init() {
-            loadData();
-            dateInput.value = todayStr();
-            currentMonthLabel.textContent = getCurrentMonthLabel();
+                    const category = categorySelect.value;
+                    const date = dateInput.value;
+                    if (!date) {
+                        showToast('Please select a date', 'error');
+                        dateInput.focus();
+                        return;
+                    }
 
-            setTimeout(() => {
-                const currentWeek = getTodayWeekKey();
+                    const description = descInput.value.trim();
+
+                    addExpense(amount, category, date, description);
+
+                    amountInput.value = '';
+                    descInput.value = '';
+                    dateInput.value = todayStr();
+                    amountInput.focus();
+
+                    render();
+
+                    showToast(`₹${amount.toFixed(2)} added to ${CATEGORY_NAMES[category] || category}`, 'success');
+                } catch (err) {
+                    showToast('Error adding expense: ' + err.message, 'error');
+                    console.error('Add expense error:', err);
+                }
+            });
+
+            // --- Filter change handlers ---
+            filterCategory.addEventListener('change', () => { editingId = null;
+                render(); });
+            filterWeek.addEventListener('change', () => { editingId = null;
+                render(); });
+            filterMonth.addEventListener('change', () => { editingId = null;
+                render(); });
+
+            // --- Clear filters ---
+            clearFiltersBtn.addEventListener('click', function() {
+                filterCategory.value = 'all';
+
                 const weekOpts = filterWeek.querySelectorAll('option');
-                for (const opt of weekOpts) {
-                    if (opt.value === currentWeek) {
-                        filterWeek.value = currentWeek;
-                        break;
-                    }
+                if (weekOpts.length > 1) {
+                    filterWeek.value = weekOpts[weekOpts.length - 1].value;
+                } else {
+                    filterWeek.value = 'all';
                 }
-                const currentMonth = getTodayMonthKey();
+
                 const monthOpts = filterMonth.querySelectorAll('option');
-                for (const opt of monthOpts) {
-                    if (opt.value === currentMonth) {
-                        filterMonth.value = currentMonth;
-                        break;
-                    }
+                if (monthOpts.length > 1) {
+                    filterMonth.value = monthOpts[monthOpts.length - 1].value;
+                } else {
+                    filterMonth.value = 'all';
                 }
+
+                editingId = null;
                 render();
-            }, 10);
-            render();
-        }
+                showToast('Filters cleared', 'success');
+            });
 
-        init();
+            // --- Reset all ---
+            resetBtn.addEventListener('click', resetAll);
+
+            // --- Init ---
+            function init() {
+                loadData();
+                dateInput.value = todayStr();
+                currentMonthLabel.textContent = getCurrentMonthLabel();
+
+                populateFilterOptions();
+                filteredExpenses = getFiltered();
+                renderTable();
+                renderSummary();
+                renderFilterStats();
+            }
+
+            init();
+        })();
     </script>
-
 </body>
 </html>
