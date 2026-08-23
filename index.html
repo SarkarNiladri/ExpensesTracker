@@ -518,6 +518,46 @@
             background: var(--border-color);
         }
 
+        /* ---------- Pagination ---------- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 0 4px 0;
+            margin-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .page-btn {
+            background: var(--bg-pill);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 750px) {
             .app {
@@ -586,6 +626,10 @@
             }
             .edit-row .edit-field .edit-actions {
                 justify-content: flex-end;
+            }
+            .pagination {
+                flex-wrap: wrap;
+                gap: 10px;
             }
         }
 
@@ -818,6 +862,14 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button class="page-btn" id="prevPageBtn">◀ Previous</button>
+            <span class="page-info" id="pageInfo">Page 1 of 1</span>
+            <button class="page-btn" id="nextPageBtn">Next ▶</button>
+        </div>
+
         <div class="persist-note">
             <span>💾 All data is saved automatically — view past months using the <strong>Month</strong> filter above.</span>
         </div>
@@ -828,7 +880,7 @@
         (function() {
             'use strict';
 
-            // --- Constants with new categories ---
+            // --- Constants ---
             const CATEGORY_COLORS = {
                 food: '#e67e22',
                 grocery: '#2ecc71',
@@ -881,11 +933,13 @@
             };
 
             const STORAGE_KEY = 'expenseTrackerData';
+            const ITEMS_PER_PAGE = 10;
 
             // --- State ---
             let expenses = [];
             let filteredExpenses = [];
             let editingId = null;
+            let currentPage = 0;
 
             // --- DOM refs ---
             const form = document.getElementById('expenseForm');
@@ -908,6 +962,9 @@
             const resetBtn = document.getElementById('resetBtn');
             const toast = document.getElementById('toast');
             const currentMonthLabel = document.getElementById('currentMonthLabel');
+            const prevPageBtn = document.getElementById('prevPageBtn');
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            const pageInfo = document.getElementById('pageInfo');
 
             // --- Helpers ---
             function todayStr() {
@@ -1012,6 +1069,7 @@
                 if (confirm('Delete ALL expenses? This cannot be undone.')) {
                     expenses = [];
                     saveData();
+                    currentPage = 0;
                     render();
                     showToast('All expenses cleared', 'success');
                 }
@@ -1035,13 +1093,29 @@
                 currentMonthLabel.textContent = getCurrentMonthLabel();
                 populateFilterOptions();
                 filteredExpenses = getFiltered();
-                renderTable();
+
+                // Calculate pagination slice
+                const totalItems = filteredExpenses.length;
+                const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+                if (currentPage >= totalPages) {
+                    currentPage = totalPages - 1;
+                }
+                if (currentPage < 0) {
+                    currentPage = 0;
+                }
+
+                const startIndex = currentPage * ITEMS_PER_PAGE;
+                const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+                const pageItems = filteredExpenses.slice(startIndex, endIndex);
+
+                renderTable(pageItems);
                 renderSummary();
                 renderFilterStats();
+                renderPagination(totalItems, totalPages);
             }
 
-            function renderTable() {
-                if (filteredExpenses.length === 0) {
+            function renderTable(pageItems) {
+                if (pageItems.length === 0) {
                     expenseBody.innerHTML = `
                         <tr class="empty-row">
                             <td colspan="5">${expenses.length === 0 ? 'No expenses recorded yet. Add one above! ✨' : 'No expenses match the current filters.'}</td>
@@ -1051,7 +1125,7 @@
                 }
 
                 let html = '';
-                for (const e of filteredExpenses) {
+                for (const e of pageItems) {
                     const color = CATEGORY_COLORS[e.category] || '#636e72';
                     const emoji = CATEGORY_EMOJIS[e.category] || '📌';
                     const catName = CATEGORY_NAMES[e.category] || e.category;
@@ -1101,11 +1175,13 @@
                 }
                 expenseBody.innerHTML = html;
 
+                // Event listeners for actions
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const id = this.dataset.id;
                         if (editingId === id) editingId = null;
                         deleteExpense(id);
+                        currentPage = 0;
                         render();
                         showToast('Expense deleted', 'success');
                     });
@@ -1180,6 +1256,18 @@
 
             function renderFilterStats() {
                 filterStats.innerHTML = `Showing <strong>${filteredExpenses.length}</strong> expense${filteredExpenses.length !== 1 ? 's' : ''}`;
+            }
+
+            function renderPagination(totalItems, totalPages) {
+                if (totalItems === 0) {
+                    pageInfo.textContent = 'Page 0 of 0';
+                    prevPageBtn.disabled = true;
+                    nextPageBtn.disabled = true;
+                    return;
+                }
+                pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+                prevPageBtn.disabled = (currentPage === 0);
+                nextPageBtn.disabled = (currentPage === totalPages - 1);
             }
 
             function populateFilterOptions() {
@@ -1263,6 +1351,7 @@
                     dateInput.value = todayStr();
                     amountInput.focus();
 
+                    currentPage = 0;
                     render();
 
                     showToast(`₹${amount.toFixed(2)} added to ${CATEGORY_NAMES[category] || category}`, 'success');
@@ -1272,13 +1361,39 @@
                 }
             });
 
+            // --- Pagination Controls ---
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 0) {
+                    currentPage--;
+                    render();
+                }
+            });
+
+            nextPageBtn.addEventListener('click', function() {
+                const totalItems = filteredExpenses.length;
+                const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+                if (currentPage < totalPages - 1) {
+                    currentPage++;
+                    render();
+                }
+            });
+
             // --- Filter change handlers ---
-            filterCategory.addEventListener('change', () => { editingId = null;
-                render(); });
-            filterWeek.addEventListener('change', () => { editingId = null;
-                render(); });
-            filterMonth.addEventListener('change', () => { editingId = null;
-                render(); });
+            filterCategory.addEventListener('change', () => {
+                currentPage = 0;
+                editingId = null;
+                render();
+            });
+            filterWeek.addEventListener('change', () => {
+                currentPage = 0;
+                editingId = null;
+                render();
+            });
+            filterMonth.addEventListener('change', () => {
+                currentPage = 0;
+                editingId = null;
+                render();
+            });
 
             // --- Clear filters ---
             clearFiltersBtn.addEventListener('click', function() {
@@ -1298,6 +1413,7 @@
                     filterMonth.value = 'all';
                 }
 
+                currentPage = 0;
                 editingId = null;
                 render();
                 showToast('Filters cleared', 'success');
@@ -1314,9 +1430,7 @@
 
                 populateFilterOptions();
                 filteredExpenses = getFiltered();
-                renderTable();
-                renderSummary();
-                renderFilterStats();
+                render();
             }
 
             init();
