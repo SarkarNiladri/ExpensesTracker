@@ -3,134 +3,183 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>💰 Expense Tracker (₹) - Dark</title>
+    <title>💰 Expense Tracker - Premium</title>
     <link rel="manifest" href="/manifest.json">
     <style>
-        /* ---------- Dark Theme Variables ---------- */
+        /* ===== Google Font ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        /* ===== CSS Variables ===== */
         :root {
-            --bg-body: #0d1117;
-            --bg-app: #161b22;
-            --bg-section: #1c2333;
-            --bg-card: #1c2333;
-            --bg-input: #0d1117;
-            --bg-hover: #1f242f;
-            --bg-pill: #21262d;
-            --bg-table-header: #1c2333;
-            --border-color: #30363d;
-            --border-light: #21262d;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --text-muted: #484f58;
-            --text-dark: #c9d1d9;
-            --accent-blue: #58a6ff;
-            --accent-blue-hover: #1f6feb;
-            --accent-red: #f85149;
-            --accent-green: #3fb950;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            --shadow-hover: 0 8px 32px rgba(88, 166, 255, 0.15);
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --bg-input: rgba(255, 255, 255, 0.06);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.6);
+            --accent-1: #6c5ce7;
+            --accent-2: #a29bfe;
+            --accent-3: #00b894;
+            --accent-4: #fdcb6e;
+            --accent-5: #e17055;
+            --accent-6: #74b9ff;
+            --gradient-main: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --gradient-accent: linear-gradient(135deg, #00b894, #00cec9);
+            --gradient-warm: linear-gradient(135deg, #fdcb6e, #e17055);
+            --gradient-cool: linear-gradient(135deg, #74b9ff, #6c5ce7);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ---------- Reset & Base ---------- */
+        /* ===== Reset & Base ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: var(--bg-body);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             color: var(--text-primary);
+            background-image: radial-gradient(ellipse at 10% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+                              radial-gradient(ellipse at 90% 80%, rgba(0, 184, 148, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-2);
+        }
+
+        /* ===== App Container ===== */
         .app {
             max-width: 1100px;
             width: 100%;
-            background: var(--bg-app);
-            border-radius: 28px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow);
-            padding: 30px 32px 40px;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s;
+            padding: 28px 32px 36px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
         }
 
-        /* ---------- Header ---------- */
+        .app:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ===== Header ===== */
         .header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 18px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .header-left .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-main);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+        }
+
+        .header-left h1 {
+            font-size: 26px;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .header-left .sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-left: 2px;
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .header-right {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
 
-        .header-left h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.3px;
-        }
-
-        .header-left .emoji {
-            font-size: 32px;
-        }
-
-        .header-left .sub {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-left: 4px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
         .current-month-badge {
-            background: var(--bg-section);
-            border: 1px solid var(--accent-blue);
+            background: rgba(108, 92, 231, 0.15);
+            border: 1px solid rgba(108, 92, 231, 0.25);
             border-radius: 40px;
-            padding: 6px 20px 6px 18px;
-            font-size: 15px;
+            padding: 6px 18px 6px 16px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--accent-blue);
+            color: var(--accent-2);
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
             white-space: nowrap;
         }
 
         .current-month-badge .cal-icon {
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .reset-btn {
-            background: #2d1b1e;
-            border: none;
-            color: var(--accent-red);
-            padding: 8px 18px;
+            background: rgba(225, 112, 85, 0.12);
+            border: 1px solid rgba(225, 112, 85, 0.2);
+            color: var(--accent-5);
+            padding: 6px 16px;
             border-radius: 40px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -138,131 +187,173 @@
         }
 
         .reset-btn:hover {
-            background: #3d1a1a;
-            transform: scale(1.02);
+            background: rgba(225, 112, 85, 0.2);
+            transform: scale(1.03);
+            border-color: var(--accent-5);
         }
 
-        /* ---------- Form ---------- */
+        /* ===== Form ===== */
         .form-section {
-            background: var(--bg-section);
-            border-radius: 18px;
-            padding: 22px 24px;
-            margin-bottom: 28px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .form-section:hover {
+            border-color: rgba(255, 255, 255, 0.12);
         }
 
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px 18px;
+            gap: 12px 16px;
             align-items: flex-end;
         }
 
         .form-group {
-            flex: 1 1 160px;
-            min-width: 130px;
+            flex: 1 1 150px;
+            min-width: 120px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-secondary);
             margin-bottom: 4px;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
             padding: 10px 14px;
-            border-radius: 12px;
-            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
             background: var(--bg-input);
-            font-size: 15px;
-            transition: 0.2s;
+            font-size: 14px;
+            transition: var(--transition);
             outline: none;
-            color: var(--text-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
         }
 
         .form-group input:focus,
         .form-group select:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.12);
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
         }
 
         .form-group input::placeholder {
             color: var(--text-muted);
         }
 
+        .form-group select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
         .add-btn {
-            background: var(--accent-blue);
+            background: var(--gradient-main);
             border: none;
             color: #fff;
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 15px;
             padding: 10px 32px;
             border-radius: 40px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 14px rgba(88, 166, 255, 0.30);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.35);
             flex: 0 0 auto;
-            height: 46px;
+            height: 44px;
             align-self: flex-end;
+            font-family: 'Inter', sans-serif;
         }
 
         .add-btn:hover {
-            background: var(--accent-blue-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.35);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.45);
         }
 
         .add-btn:active {
-            transform: translateY(0px);
+            transform: translateY(0px) scale(0.98);
         }
 
-        /* ---------- Summary Cards ---------- */
+        /* ===== Summary Cards ===== */
         .summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 14px;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         .summary-card {
             background: var(--bg-card);
-            border-radius: 16px;
-            padding: 16px 18px 14px;
+            border-radius: var(--radius);
+            padding: 18px 20px 16px;
             border: 1px solid var(--border-color);
-            transition: 0.2s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .summary-card:hover {
-            border-color: var(--text-muted);
-            background: var(--bg-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .summary-card:hover::before {
+            opacity: 1;
         }
 
         .summary-card .label {
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-card .label .icon {
+            font-size: 16px;
         }
 
         .summary-card .value {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-top: 4px;
+            margin-top: 6px;
+            letter-spacing: -0.5px;
         }
 
         .summary-card .value .currency {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-secondary);
             margin-right: 2px;
         }
@@ -271,24 +362,36 @@
             font-size: 13px;
             color: var(--text-muted);
             margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* Card-specific accents */
+        .summary-card:nth-child(1)::before {
+            background: var(--gradient-main);
+        }
+        .summary-card:nth-child(2)::before {
+            background: var(--gradient-accent);
+        }
+        .summary-card:nth-child(3)::before {
+            background: var(--gradient-warm);
         }
 
         .summary-card.highlight {
-            background: #1f2d4a;
-            border-color: var(--accent-blue);
+            background: rgba(108, 92, 231, 0.08);
+            border-color: rgba(108, 92, 231, 0.2);
         }
 
         .summary-card.highlight .value {
-            color: var(--accent-blue);
+            color: var(--accent-2);
         }
 
-        /* ---------- Filters ---------- */
+        /* ===== Filters ===== */
         .filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px 20px;
+            gap: 12px 16px;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             padding: 14px 0 10px;
             border-top: 1px solid var(--border-color);
         }
@@ -300,87 +403,95 @@
         }
 
         .filters .filter-group label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
         }
 
         .filters .filter-group select {
-            padding: 7px 14px;
+            padding: 6px 14px;
             border-radius: 30px;
-            border: 1.5px solid var(--border-color);
+            border: 1px solid var(--border-color);
             background: var(--bg-input);
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
             cursor: pointer;
-            transition: 0.2s;
-            color: var(--text-dark);
-            min-width: 150px;
+            transition: var(--transition);
+            color: var(--text-primary);
+            min-width: 130px;
+            font-family: 'Inter', sans-serif;
         }
 
         .filters .filter-group select:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.10);
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
         }
 
         .filters .filter-group select option {
-            background: var(--bg-app);
-            color: var(--text-dark);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         .clear-filter-btn {
-            background: var(--bg-pill);
-            border: none;
-            padding: 6px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
         }
 
         .clear-filter-btn:hover {
-            background: var(--border-color);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
         }
 
         .filter-stats {
             margin-left: auto;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
             font-weight: 500;
         }
 
-        /* ---------- Table ---------- */
+        .filter-stats strong {
+            color: var(--text-primary);
+        }
+
+        /* ===== Table ===== */
         .table-wrap {
             overflow-x: auto;
-            border-radius: 16px;
+            border-radius: var(--radius);
             border: 1px solid var(--border-color);
-            background: var(--bg-app);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
         }
 
         .expense-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .expense-table th {
-            background: var(--bg-table-header);
+            background: rgba(255, 255, 255, 0.03);
             text-align: left;
             padding: 14px 18px;
             font-weight: 600;
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
-            border-bottom: 2px solid var(--border-color);
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .expense-table td {
             padding: 13px 18px;
             border-bottom: 1px solid var(--border-light);
-            color: var(--text-dark);
+            color: var(--text-primary);
             vertical-align: middle;
         }
 
@@ -389,17 +500,20 @@
         }
 
         .expense-table tr:hover td {
-            background: var(--bg-hover);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .expense-table .category-badge {
-            display: inline-block;
-            padding: 2px 14px 2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 14px 3px 8px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
-            background: var(--bg-pill);
-            color: var(--text-dark);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
         }
 
         .expense-table .category-badge .dot {
@@ -407,21 +521,21 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            margin-right: 6px;
-            vertical-align: middle;
+            flex-shrink: 0;
         }
 
         .expense-table .amount {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-primary);
+            font-size: 15px;
         }
 
         .expense-table .action-btn {
             background: none;
             border: none;
-            font-size: 17px;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             padding: 4px 8px;
             border-radius: 6px;
             margin: 0 2px;
@@ -429,31 +543,32 @@
         }
 
         .expense-table .action-btn:hover {
-            background: var(--bg-pill);
+            background: var(--bg-card);
         }
 
         .expense-table .edit-btn:hover {
-            color: var(--accent-blue);
-            background: #1f2d4a;
+            color: var(--accent-1);
+            background: rgba(108, 92, 231, 0.12);
         }
 
         .expense-table .delete-btn:hover {
-            color: var(--accent-red);
-            background: #2d1b1e;
+            color: var(--accent-5);
+            background: rgba(225, 112, 85, 0.12);
         }
 
         .expense-table .empty-row td {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             color: var(--text-muted);
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 500;
         }
 
-        /* ---------- Edit Row ---------- */
+        /* ===== Edit Row ===== */
         .edit-row td {
             padding: 10px 12px;
-            background: var(--bg-section);
-            border-bottom: 2px solid var(--accent-blue);
+            background: rgba(108, 92, 231, 0.06);
+            border-bottom: 2px solid var(--accent-1);
         }
 
         .edit-row .edit-field {
@@ -466,21 +581,22 @@
         .edit-row .edit-field input,
         .edit-row .edit-field select {
             padding: 8px 12px;
-            border-radius: 10px;
-            border: 1.5px solid var(--border-color);
-            font-size: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-size: 13px;
             background: var(--bg-input);
             outline: none;
-            transition: 0.2s;
+            transition: var(--transition);
             min-width: 100px;
-            flex: 1 1 120px;
-            color: var(--text-dark);
+            flex: 1 1 100px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
         }
 
         .edit-row .edit-field input:focus,
         .edit-row .edit-field select:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.10);
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
         }
 
         .edit-row .edit-field .edit-actions {
@@ -494,62 +610,66 @@
             border-radius: 30px;
             border: none;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
         }
 
         .edit-row .edit-field .edit-actions .save-edit-btn {
-            background: var(--accent-blue);
+            background: var(--gradient-main);
             color: #fff;
-            box-shadow: 0 2px 10px rgba(88, 166, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(108, 92, 231, 0.3);
         }
 
         .edit-row .edit-field .edit-actions .save-edit-btn:hover {
-            background: var(--accent-blue-hover);
-            transform: scale(1.02);
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
         }
 
         .edit-row .edit-field .edit-actions .cancel-edit-btn {
-            background: var(--bg-pill);
+            background: var(--bg-card);
             color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .edit-row .edit-field .edit-actions .cancel-edit-btn:hover {
-            background: var(--border-color);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* ---------- Pagination ---------- */
+        /* ===== Pagination ===== */
         .pagination {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             padding: 16px 0 4px 0;
             margin-top: 8px;
             border-top: 1px solid var(--border-color);
         }
 
         .page-btn {
-            background: var(--bg-pill);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             padding: 6px 18px;
             border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
         }
 
         .page-btn:hover:not(:disabled) {
-            background: var(--accent-blue);
+            background: var(--accent-1);
             color: #fff;
-            border-color: var(--accent-blue);
+            border-color: var(--accent-1);
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.3);
         }
 
         .page-btn:disabled {
-            opacity: 0.4;
+            opacity: 0.3;
             cursor: not-allowed;
         }
 
@@ -559,144 +679,17 @@
             font-weight: 500;
         }
 
-        /* ---------- Responsive ---------- */
-        @media (max-width: 750px) {
-            .app {
-                padding: 18px 16px 28px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            .header-left h1 {
-                font-size: 22px;
-            }
-            .header-right {
-                justify-content: space-between;
-                width: 100%;
-            }
-            .current-month-badge {
-                font-size: 13px;
-                padding: 5px 14px;
-            }
-            .form-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .form-group {
-                flex: 1 1 auto;
-                min-width: unset;
-            }
-            .add-btn {
-                align-self: stretch;
-                justify-content: center;
-                height: 48px;
-            }
-            .summary {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-            .filters {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-            .filters .filter-group {
-                flex-wrap: wrap;
-            }
-            .filters .filter-group select {
-                min-width: 100px;
-                flex: 1;
-            }
-            .filter-stats {
-                margin-left: 0;
-                text-align: right;
-            }
-            .expense-table th,
-            .expense-table td {
-                padding: 10px 12px;
-                font-size: 14px;
-            }
-            .expense-table .category-badge {
-                font-size: 12px;
-                padding: 1px 10px 1px 6px;
-            }
-            .edit-row .edit-field {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .edit-row .edit-field .edit-actions {
-                justify-content: flex-end;
-            }
-            .pagination {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .summary {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .summary-card .value {
-                font-size: 20px;
-            }
-            .header-left h1 {
-                font-size: 20px;
-            }
-            .header-right {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .current-month-badge {
-                font-size: 12px;
-                padding: 4px 12px;
-            }
-        }
-
-        /* ---------- Scrollbar ---------- */
-        .table-wrap::-webkit-scrollbar {
-            height: 6px;
-        }
-        .table-wrap::-webkit-scrollbar-track {
-            background: var(--bg-body);
-            border-radius: 10px;
-        }
-        .table-wrap::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 10px;
-        }
-        .table-wrap::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-
-        /* ---------- Animations ---------- */
-        @keyframes fadeSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .expense-table tbody tr {
-            animation: fadeSlide 0.2s ease-out;
-        }
-
-        /* ---------- Toast ---------- */
+        /* ===== Toast ===== */
         .toast {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--bg-card);
+            background: var(--bg-secondary);
             color: var(--text-primary);
             padding: 14px 32px;
             border-radius: 60px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
@@ -704,58 +697,282 @@
             transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
             z-index: 999;
+            font-family: 'Inter', sans-serif;
+            backdrop-filter: blur(20px);
         }
+
         .toast.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
         .toast.success {
-            background: #1b3a2a;
-            color: var(--accent-green);
-            border-color: var(--accent-green);
-        }
-        .toast.error {
-            background: #3d1a1a;
-            color: var(--accent-red);
-            border-color: var(--accent-red);
+            border-color: var(--accent-3);
+            background: rgba(0, 184, 148, 0.12);
+            color: var(--accent-3);
         }
 
-        /* ---------- Persistence Note ---------- */
+        .toast.error {
+            border-color: var(--accent-5);
+            background: rgba(225, 112, 85, 0.12);
+            color: var(--accent-5);
+        }
+
+        /* ===== Persistence Note ===== */
         .persist-note {
             font-size: 12px;
             color: var(--text-muted);
             text-align: right;
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border-color);
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
         }
+
         .persist-note span {
-            background: var(--bg-section);
-            padding: 2px 12px;
+            background: var(--bg-card);
+            padding: 2px 14px;
             border-radius: 30px;
             display: inline-block;
+            border: 1px solid var(--border-light);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .app {
+                padding: 18px 16px 24px;
+                border-radius: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .header-left h1 {
+                font-size: 22px;
+            }
+
+            .header-left .logo-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+
+            .header-right {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .current-month-badge {
+                font-size: 13px;
+                padding: 5px 14px;
+            }
+
+            .form-section {
+                padding: 16px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-group {
+                flex: 1 1 auto;
+                min-width: unset;
+            }
+
+            .add-btn {
+                align-self: stretch;
+                justify-content: center;
+                height: 48px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;
+            }
+
+            .summary-card .value {
+                font-size: 22px;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .filters .filter-group {
+                flex-wrap: wrap;
+            }
+
+            .filters .filter-group select {
+                min-width: 100px;
+                flex: 1;
+            }
+
+            .filter-stats {
+                margin-left: 0;
+                text-align: right;
+            }
+
+            .expense-table th,
+            .expense-table td {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .expense-table .category-badge {
+                font-size: 12px;
+                padding: 2px 10px 2px 6px;
+            }
+
+            .edit-row .edit-field {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .edit-row .edit-field .edit-actions {
+                justify-content: flex-end;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .toast {
+                padding: 12px 24px;
+                font-size: 13px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .summary-card {
+                padding: 14px 16px 12px;
+            }
+
+            .summary-card .value {
+                font-size: 20px;
+            }
+
+            .header-left h1 {
+                font-size: 19px;
+            }
+
+            .header-right {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .current-month-badge {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+
+            .reset-btn {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+
+            .filters .filter-group select {
+                min-width: 80px;
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            .expense-table th,
+            .expense-table td {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .expense-table .category-badge {
+                font-size: 11px;
+                padding: 1px 8px 1px 4px;
+            }
+
+            .expense-table .category-badge .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .expense-table .amount {
+                font-size: 13px;
+            }
+
+            .edit-row .edit-field input,
+            .edit-row .edit-field select {
+                font-size: 12px;
+                padding: 6px 10px;
+                min-width: 70px;
+            }
+
+            .edit-row .edit-field .edit-actions button {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .expense-table tbody tr {
+            animation: fadeSlideUp 0.25s ease-out;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .add-btn:active {
+            animation: pulse 0.2s ease;
         }
     </style>
 </head>
 <body>
     <div class="app" id="app">
-        <!-- Header -->
+
+        <!-- ===== HEADER ===== -->
         <header class="header">
             <div class="header-left">
-                <span class="emoji">💰</span>
+                <div class="logo-icon">💰</div>
                 <h1>Expense Tracker</h1>
-                <span class="sub">· monthly overview (₹)</span>
+                <span class="sub">· monthly overview</span>
             </div>
             <div class="header-right">
                 <div class="current-month-badge" id="currentMonthBadge">
                     <span class="cal-icon">📅</span>
                     <span id="currentMonthLabel">January 2026</span>
                 </div>
-                <button class="reset-btn" id="resetBtn">🗑️ Reset All</button>
+                <button class="reset-btn" id="resetBtn">🗑️ Reset</button>
             </div>
         </header>
 
-        <!-- Add Expense Form -->
+        <!-- ===== ADD EXPENSE FORM ===== -->
         <section class="form-section">
             <form id="expenseForm" class="form-row">
                 <div class="form-group">
@@ -785,34 +1002,34 @@
                     <label for="dateInput">Date</label>
                     <input type="date" id="dateInput" required />
                 </div>
-                <div class="form-group" style="flex: 2 1 200px;">
-                    <label for="descInput">Description (optional)</label>
+                <div class="form-group" style="flex: 2 1 180px;">
+                    <label for="descInput">Description</label>
                     <input type="text" id="descInput" placeholder="e.g. Lunch with team" maxlength="60" />
                 </div>
-                <button type="submit" class="add-btn" id="addBtn">➕ Add</button>
+                <button type="submit" class="add-btn">➕ Add</button>
             </form>
         </section>
 
-        <!-- Summary Cards -->
+        <!-- ===== SUMMARY CARDS ===== -->
         <section class="summary" id="summaryContainer">
             <div class="summary-card highlight">
-                <div class="label">Total</div>
+                <div class="label"><span class="icon">📊</span> Total</div>
                 <div class="value"><span class="currency">₹</span><span id="totalAmount">0.00</span></div>
                 <div class="sub-info" id="totalCount">0 expenses</div>
             </div>
             <div class="summary-card">
-                <div class="label">This Week</div>
+                <div class="label"><span class="icon">📆</span> This Week</div>
                 <div class="value"><span class="currency">₹</span><span id="weekTotal">0.00</span></div>
                 <div class="sub-info" id="weekCount">0 expenses</div>
             </div>
             <div class="summary-card">
-                <div class="label">This Month</div>
+                <div class="label"><span class="icon">📅</span> This Month</div>
                 <div class="value"><span class="currency">₹</span><span id="monthTotal">0.00</span></div>
                 <div class="sub-info" id="monthCount">0 expenses</div>
             </div>
         </section>
 
-        <!-- Filters -->
+        <!-- ===== FILTERS ===== -->
         <div class="filters">
             <div class="filter-group">
                 <label for="filterCategory">Category</label>
@@ -846,7 +1063,7 @@
             <span class="filter-stats" id="filterStats">Showing <strong>0</strong> expenses</span>
         </div>
 
-        <!-- Expense Table -->
+        <!-- ===== TABLE ===== -->
         <div class="table-wrap">
             <table class="expense-table">
                 <thead>
@@ -855,33 +1072,36 @@
                         <th>Category</th>
                         <th>Description</th>
                         <th style="text-align:right;">Amount</th>
-                        <th style="text-align:center; width:100px;">Actions</th>
+                        <th style="text-align:center; width:80px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="expenseBody">
-                    <tr class="empty-row"><td colspan="5">No expenses recorded yet. Add one above! ✨</td></tr>
+                    <tr class="empty-row"><td colspan="5">✨ No expenses yet — add your first one!</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Pagination Controls -->
+        <!-- ===== PAGINATION ===== -->
         <div class="pagination">
             <button class="page-btn" id="prevPageBtn">◀ Previous</button>
             <span class="page-info" id="pageInfo">Page 1 of 1</span>
             <button class="page-btn" id="nextPageBtn">Next ▶</button>
         </div>
 
+        <!-- ===== FOOTER ===== -->
         <div class="persist-note">
-            <span>💾 All data is saved automatically — view past months using the <strong>Month</strong> filter above.</span>
+            <span>💾 All data saved automatically — use the <strong>Month</strong> filter above</span>
         </div>
     </div>
+
+    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
         (function() {
             'use strict';
 
-            // --- Constants ---
+            // ===== CONSTANTS =====
             const CATEGORY_COLORS = {
                 food: '#e67e22',
                 grocery: '#2ecc71',
@@ -936,13 +1156,13 @@
             const STORAGE_KEY = 'expenseTrackerData';
             const ITEMS_PER_PAGE = 10;
 
-            // --- State ---
+            // ===== STATE =====
             let expenses = [];
             let filteredExpenses = [];
             let editingId = null;
             let currentPage = 0;
 
-            // --- DOM refs ---
+            // ===== DOM REFS =====
             const form = document.getElementById('expenseForm');
             const amountInput = document.getElementById('amountInput');
             const categorySelect = document.getElementById('categorySelect');
@@ -967,20 +1187,21 @@
             const nextPageBtn = document.getElementById('nextPageBtn');
             const pageInfo = document.getElementById('pageInfo');
 
-            // --- Helpers ---
-            function todayStr() {
-                return new Date().toISOString().slice(0, 10);
-            }
+            // ===== HELPERS =====
+            function todayStr() { return new Date().toISOString().slice(0, 10); }
+
             function formatDate(d) {
                 const dt = new Date(d + 'T00:00:00');
                 return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             }
+
             function getWeekNumber(d) {
                 const date = new Date(d + 'T00:00:00');
                 const startOfYear = new Date(date.getFullYear(), 0, 1);
                 const days = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000));
                 return Math.ceil((days + startOfYear.getDay() + 1) / 7);
             }
+
             function getWeekLabelFromKey(weekKey) {
                 const parts = weekKey.split('-W');
                 const year = parseInt(parts[0]);
@@ -994,28 +1215,36 @@
                 monday.setDate(monday.getDate() + (weekNum - 1) * 7);
                 const sunday = new Date(monday);
                 sunday.setDate(sunday.getDate() + 6);
-                return `W${weekNum} (${formatDate(monday.toISOString().slice(0,10))} – ${formatDate(sunday.toISOString().slice(0,10))})`;
+                return `W${weekNum} (${formatDate(monday.toISOString().slice(0, 10))} – ${formatDate(sunday.toISOString().slice(0, 10))})`;
             }
+
             function getMonthLabel(d) {
                 const date = new Date(d + 'T00:00:00');
                 return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
             }
+
             function getMonthKey(d) { return d.slice(0, 7); }
+
             function getWeekKey(d) {
                 const date = new Date(d + 'T00:00:00');
                 const weekNum = getWeekNumber(d);
                 return `${date.getFullYear()}-W${String(weekNum).padStart(2, '0')}`;
             }
+
             function isSameWeek(d1, d2) { return getWeekKey(d1) === getWeekKey(d2); }
+
             function isSameMonth(d1, d2) { return getMonthKey(d1) === getMonthKey(d2); }
+
             function getTodayWeekKey() { return getWeekKey(todayStr()); }
+
             function getTodayMonthKey() { return getMonthKey(todayStr()); }
+
             function getCurrentMonthLabel() {
                 const now = new Date();
                 return now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
             }
 
-            // --- Storage ---
+            // ===== STORAGE =====
             function loadData() {
                 try {
                     const raw = localStorage.getItem(STORAGE_KEY);
@@ -1036,7 +1265,7 @@
                 } catch (_) {}
             }
 
-            // --- CRUD ---
+            // ===== CRUD =====
             function addExpense(amount, category, date, description) {
                 const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
                 const expense = {
@@ -1060,7 +1289,8 @@
             function updateExpense(id, amount, category, date, description) {
                 const idx = expenses.findIndex(e => e.id === id);
                 if (idx === -1) return false;
-                expenses[idx] = { ...expenses[idx], amount: parseFloat(amount), category, date, description: description.trim() || '' };
+                expenses[idx] = { ...expenses[idx], amount: parseFloat(amount), category, date,
+                description: description.trim() || '' };
                 saveData();
                 return true;
             }
@@ -1076,7 +1306,7 @@
                 }
             }
 
-            // --- Filtering ---
+            // ===== FILTERING =====
             function getFiltered() {
                 let list = [...expenses];
                 const cat = filterCategory.value;
@@ -1089,21 +1319,16 @@
                 return list;
             }
 
-            // --- Render ---
+            // ===== RENDER =====
             function render() {
                 currentMonthLabel.textContent = getCurrentMonthLabel();
                 populateFilterOptions();
                 filteredExpenses = getFiltered();
 
-                // Calculate pagination slice
                 const totalItems = filteredExpenses.length;
                 const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-                if (currentPage >= totalPages) {
-                    currentPage = totalPages - 1;
-                }
-                if (currentPage < 0) {
-                    currentPage = 0;
-                }
+                if (currentPage >= totalPages) { currentPage = totalPages - 1; }
+                if (currentPage < 0) { currentPage = 0; }
 
                 const startIndex = currentPage * ITEMS_PER_PAGE;
                 const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
@@ -1119,7 +1344,7 @@
                 if (pageItems.length === 0) {
                     expenseBody.innerHTML = `
                         <tr class="empty-row">
-                            <td colspan="5">${expenses.length === 0 ? 'No expenses recorded yet. Add one above! ✨' : 'No expenses match the current filters.'}</td>
+                            <td colspan="5">${expenses.length === 0 ? '✨ No expenses yet — add your first one!' : '🔍 No expenses match your filters.'}</td>
                         </tr>
                     `;
                     return;
@@ -1176,7 +1401,7 @@
                 }
                 expenseBody.innerHTML = html;
 
-                // Event listeners for actions
+                // Event listeners
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const id = this.dataset.id;
@@ -1206,7 +1431,8 @@
                         const amountVal = parseFloat(row.querySelector('.edit-amount').value);
 
                         if (!dateVal) { showToast('Date is required', 'error'); return; }
-                        if (!amountVal || amountVal <= 0) { showToast('Enter a valid amount', 'error'); return; }
+                        if (!amountVal || amountVal <= 0) { showToast('Enter a valid amount', 'error');
+                        return; }
 
                         if (updateExpense(id, amountVal, categoryVal, dateVal, descVal)) {
                             editingId = null;
@@ -1309,7 +1535,7 @@
                 }
             }
 
-            // --- Toast ---
+            // ===== TOAST =====
             let toastTimeout = null;
 
             function showToast(msg, type = '') {
@@ -1323,7 +1549,7 @@
                 }, 2200);
             }
 
-            // --- Form Submit ---
+            // ===== FORM SUBMIT =====
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -1362,7 +1588,7 @@
                 }
             });
 
-            // --- Pagination Controls ---
+            // ===== PAGINATION =====
             prevPageBtn.addEventListener('click', function() {
                 if (currentPage > 0) {
                     currentPage--;
@@ -1379,24 +1605,18 @@
                 }
             });
 
-            // --- Filter change handlers ---
-            filterCategory.addEventListener('change', () => {
-                currentPage = 0;
+            // ===== FILTER CHANGE =====
+            filterCategory.addEventListener('change', () => { currentPage = 0;
                 editingId = null;
-                render();
-            });
-            filterWeek.addEventListener('change', () => {
-                currentPage = 0;
+                render(); });
+            filterWeek.addEventListener('change', () => { currentPage = 0;
                 editingId = null;
-                render();
-            });
-            filterMonth.addEventListener('change', () => {
-                currentPage = 0;
+                render(); });
+            filterMonth.addEventListener('change', () => { currentPage = 0;
                 editingId = null;
-                render();
-            });
+                render(); });
 
-            // --- Clear filters ---
+            // ===== CLEAR FILTERS =====
             clearFiltersBtn.addEventListener('click', function() {
                 filterCategory.value = 'all';
 
@@ -1420,10 +1640,23 @@
                 showToast('Filters cleared', 'success');
             });
 
-            // --- Reset all ---
+            // ===== RESET =====
             resetBtn.addEventListener('click', resetAll);
 
-            // --- Init ---
+            // ===== SERVICE WORKER =====
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            console.log('SW registered:', registration);
+                        })
+                        .catch(registrationError => {
+                            console.log('SW registration failed:', registrationError);
+                        });
+                });
+            }
+
+            // ===== INIT =====
             function init() {
                 loadData();
                 dateInput.value = todayStr();
@@ -1436,18 +1669,6 @@
 
             init();
         })();
-
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('SW registered: ', registration);
-                })
-                .catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-        });
-    }
     </script>
 </body>
 </html>
