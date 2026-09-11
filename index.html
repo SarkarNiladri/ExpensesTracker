@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link rel="manifest" href="/manifest.json?v=6">
+    <link rel="manifest" href="/manifest.json?v=7">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -81,7 +81,7 @@
         }
 
         .topbar-left h1 {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 500;
             color: var(--text-primary);
             letter-spacing: -0.2px;
@@ -905,7 +905,7 @@
             }
 
             .expense-table .desc-cell {
-                max-width: 100px;
+                max-width: 110px;
                 font-size: 12px;
             }
 
@@ -986,12 +986,21 @@
                 font-size: 22px;
             }
 
+            /* ✅ FIX: Week / Month / Avg-day all on one line */
             .hero-stats {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 8px;
             }
 
-            .hero-stats .stat:nth-child(3) {
-                grid-column: span 2;
+            .hero-stats .stat .stat-label {
+                font-size: 10px;
+                margin-bottom: 4px;
+                letter-spacing: 0.2px;
+            }
+
+            .hero-stats .stat .stat-value {
+                font-size: 14px;
+                letter-spacing: -0.3px;
             }
 
             .add-grid {
@@ -1030,9 +1039,41 @@
                 height: 150px;
             }
 
-            .expense-table .desc-cell,
-            .expense-table th.desc-col {
-                display: none;
+            /* ✅ FIX: Tighter table spacing so all 5 columns fit including description */
+            .expense-table th {
+                font-size: 9px;
+                letter-spacing: 0.4px;
+                padding: 10px 0;
+            }
+
+            .expense-table td {
+                padding: 12px 0;
+                font-size: 12px;
+            }
+
+            .expense-table .date-cell {
+                font-size: 11px;
+            }
+
+            .expense-table .desc-cell {
+                font-size: 11px;
+                max-width: 75px;
+            }
+
+            .expense-table .amount-cell {
+                font-size: 12px;
+            }
+
+            .expense-table .action-btn {
+                font-size: 14px;
+                padding: 8px 6px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            .expense-table th.actions-col,
+            .expense-table .actions-cell {
+                width: 72px;
             }
         }
 
@@ -1063,13 +1104,19 @@
                 font-size: 18px;
             }
 
-            .hero-stats .stat .stat-value {
-                font-size: 15px;
+            /* ✅ FIX: Still keep Week/Month/Avg on one line */
+            .hero-stats {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px;
             }
 
-            .expense-table .date-cell,
-            .expense-table th:first-child {
-                display: none;
+            .hero-stats .stat .stat-label {
+                font-size: 9px;
+            }
+
+            .hero-stats .stat .stat-value {
+                font-size: 12px;
+                letter-spacing: -0.2px;
             }
 
             .filters {
@@ -1082,14 +1129,24 @@
                 margin-left: 0;
                 margin-top: 4px;
             }
+
+            /* ✅ Keep description visible even on very small screens */
+            .expense-table .desc-cell {
+                max-width: 60px;
+                font-size: 10px;
+            }
+
+            .expense-table .date-cell {
+                font-size: 10px;
+            }
         }
 
         @media (hover: none) and (pointer: coarse) {
             .expense-table .action-btn {
-                min-width: 44px;
-                min-height: 44px;
-                padding: 10px 12px;
-                font-size: 16px;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 10px 10px;
+                font-size: 15px;
             }
 
             .add-btn,
@@ -1116,7 +1173,7 @@
         <!-- ===== TOP BAR ===== -->
         <header class="topbar">
             <div class="topbar-left">
-                <h1>💰Expense Tracker</h1>
+                <h1>Expense Tracker</h1>
                 <span class="month-badge">
                     <span class="dot"></span>
                     <span id="currentMonthLabel">January 2026</span>
@@ -1212,20 +1269,20 @@
         <div class="filters">
             <select id="filterCategory" class="filter-select">
                 <option value="all">All categories</option>
-                <option value="food">Food</option>
-                <option value="grocery">Grocery</option>
-                <option value="rent">Rent</option>
-                <option value="investment">Investment</option>
-                <option value="loan">Loan</option>
-                <option value="travelling">Travelling</option>
-                <option value="shopping">Shopping</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="utilities">Utilities</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="education">Education</option>
-                <option value="insurance">Insurance</option>
-                <option value="subscription">Subscription</option>
-                <option value="other">Other</option>
+                <option value="food">🍔Food</option>
+                <option value="grocery">🛒Grocery</option>
+                <option value="rent">🏠Rent</option>
+                <option value="investment">📈Investment</option>
+                <option value="loan">🏦Loan</option>
+                <option value="travelling">✈️Travelling</option>
+                <option value="shopping">🛍️Shopping</option>
+                <option value="entertainment">🎬Entertainment</option>
+                <option value="utilities">💡Utilities</option>
+                <option value="healthcare">🏥Healthcare</option>
+                <option value="education">📚Education</option>
+                <option value="insurance">🛡️Insurance</option>
+                <option value="subscription">📺Subscription</option>
+                <option value="other">📌Other</option>
             </select>
             <select id="filterWeek" class="filter-select">
                 <option value="all">All weeks</option>
@@ -1879,7 +1936,7 @@
             // ===== SERVICE WORKER =====
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js?v=6')
+                    navigator.serviceWorker.register('/sw.js?v=7')
                         .then(reg => { console.log('SW registered'); reg.update(); })
                         .catch(err => console.log('SW failed:', err));
                 });
