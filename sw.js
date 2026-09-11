@@ -1,49 +1,64 @@
-const CACHE_NAME = 'expense-tracker-v1';
+// sw.js — v8
+const CACHE_NAME = 'expense-tracker-v8';
 const urlsToCache = [
   '/',
   '/index.html',
-  // Add paths to your CSS or JS files if you have them
-  // e.g., '/style.css', '/script.js'
+  '/manifest.json'
 ];
 
-// Install the service worker and cache the essential files
+// Install: cache fresh files and activate immediately
 self.addEventListener('install', event => {
+  self.skipWaiting(); // Don't wait for old tabs to close
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// Serve cached content when offline
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return the response from the cache
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
-  );
-});
-
-// Update the service worker and clear old caches
+// Activate: delete ALL old caches and take control immediately
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => self.clients.claim()) // Take control of all pages immediately
+  );
+});
+
+// Fetch: network-first for HTML, cache-first for assets
+self.addEventListener('fetch', event => {
+  const req = event.request;
+
+  // For HTML navigation, always try network first
+  if (req.mode === 'navigate' || (req.method === 'GET' && req.headers.get('accept')?.includes('text/html'))) {
+    event.respondWith(
+      fetch(req)
+        .then(response => {
+          // Cache the fresh version
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
+          return response;
+        })
+        .catch(() => caches.match(req).then(r => r || caches.match('/index.html')))
+    );
+    return;
+  }
+
+  // For other assets, cache-first with network fallback
+  event.respondWith(
+    caches.match(req).then(cached => {
+      return cached || fetch(req).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
+        return response;
+      });
     })
   );
 });
