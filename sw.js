@@ -1,5 +1,5 @@
-// sw.js — v8
-const CACHE_NAME = 'expense-tracker-v8';
+// sw.js — v9
+const CACHE_NAME = 'expense-tracker-v9';
 const urlsToCache = [
   '/',
   '/index.html',

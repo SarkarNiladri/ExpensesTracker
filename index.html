@@ -9,17 +9,17 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link rel="manifest" href="/manifest.json?v=7">
+    <link rel="manifest" href="/manifest.json?v=8">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
             --surface-0: #0a0a0a;
-            --surface-1: #141414;
+            --surface-1: #4D40B8;
             --surface-2: #1a1a1a;
             --text-primary: #f5f5f5;
             --text-secondary: #8a8a8a;
-            --text-muted: #5a5a5a;
+            --text-muted: #ADA9BA;
             --border: rgba(255, 255, 255, 0.08);
             --border-strong: rgba(255, 255, 255, 0.15);
             --fill-accent: #f5f5f5;
@@ -52,7 +52,6 @@
             font-feature-settings: 'tnum' 1, 'cv11' 1;
         }
 
-        /* ===== App wrapper ===== */
         .app {
             max-width: 900px;
             margin: 0 auto;
@@ -67,7 +66,7 @@
             gap: 16px;
             padding-bottom: 20px;
             border-bottom: 0.5px solid var(--border);
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             animation: fadeUp 0.5s ease-out;
             flex-wrap: wrap;
         }
@@ -81,7 +80,7 @@
         }
 
         .topbar-left h1 {
-            font-size: 16px;
+            font-size: 22px;
             font-weight: 500;
             color: var(--text-primary);
             letter-spacing: -0.2px;
@@ -89,7 +88,7 @@
         }
 
         .topbar-left .month-badge {
-            font-size: 13px;
+            font-size: 20px;
             color: var(--text-secondary);
             letter-spacing: 0.2px;
             font-weight: 400;
@@ -115,8 +114,8 @@
 
         .reset-top-btn {
             background: transparent;
-            border: 0.5px solid var(--border);
             color: var(--text-secondary);
+            border: 0.5px solid var(--border);
             font-size: 12px;
             font-family: var(--font-sans);
             padding: 7px 14px;
@@ -128,15 +127,56 @@
         }
 
         .reset-top-btn:hover {
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.3);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 32px;
+            border-bottom: 0.5px solid var(--border);
+            animation: fadeUp 0.5s ease-out 0.03s backwards;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            letter-spacing: 0.2px;
+        }
+
+        .tab-btn:hover {
             color: var(--text-primary);
-            border-color: var(--border-strong);
-            background: var(--surface-1);
+        }
+
+        .tab-btn.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeUp 0.3s ease-out;
         }
 
         /* ===== Hero ===== */
         .hero {
             margin-bottom: 56px;
-            animation: fadeUp 0.5s ease-out 0.05s backwards;
         }
 
         .hero-main {
@@ -217,7 +257,6 @@
             margin-bottom: 56px;
             padding-bottom: 40px;
             border-bottom: 0.5px solid var(--border);
-            animation: fadeUp 0.5s ease-out 0.1s backwards;
         }
 
         .add-grid {
@@ -304,7 +343,6 @@
             margin-bottom: 56px;
             padding-bottom: 40px;
             border-bottom: 0.5px solid var(--border);
-            animation: fadeUp 0.5s ease-out 0.15s backwards;
         }
 
         .chart-header {
@@ -469,7 +507,6 @@
             border-bottom: 0.5px solid var(--border);
             align-items: center;
             flex-wrap: wrap;
-            animation: fadeUp 0.5s ease-out 0.2s backwards;
         }
 
         .filters .filter-select {
@@ -530,7 +567,7 @@
 
         /* ===== Table ===== */
         .table-section {
-            animation: fadeUp 0.5s ease-out 0.25s backwards;
+            animation: fadeUp 0.3s ease-out;
         }
 
         table.expense-table {
@@ -746,6 +783,148 @@
             font-feature-settings: 'tnum' 1;
         }
 
+        /* ===== Monthly Graph Tab ===== */
+        .graph-section {
+            animation: fadeUp 0.4s ease-out;
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .graph-header h2 {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .graph-month-select {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: var(--font-sans);
+            padding: 6px 18px 6px 0;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: var(--transition);
+            letter-spacing: 0.1px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8a8a' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 12px;
+        }
+
+        .graph-month-select:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .graph-month-select:focus {
+            border-color: var(--text-primary);
+        }
+
+        .graph-month-select option {
+            background: var(--surface-2);
+            color: var(--text-primary);
+        }
+
+        .graph-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 0.5px solid var(--border);
+        }
+
+        .graph-stat .graph-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .graph-stat .graph-stat-value {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.6px;
+            word-break: break-word;
+        }
+
+        .graph-stat .graph-stat-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.2px;
+        }
+
+        .graph-chart-wrap {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+
+        .graph-chart-wrap svg {
+            display: block;
+            width: 100%;
+            min-width: 640px;
+            height: auto;
+            animation: chartFadeIn 0.6s ease-out;
+        }
+
+        @keyframes chartFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .graph-line {
+            stroke-dasharray: 3000;
+            stroke-dashoffset: 3000;
+            animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .graph-point {
+            animation: pointPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        @keyframes pointPop {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .graph-label {
+            animation: labelFade 0.5s ease-out 0.6s backwards;
+        }
+
+        @keyframes labelFade {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .graph-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
         /* ===== Footer ===== */
         .footer {
             margin-top: 40px;
@@ -791,378 +970,134 @@
             border-color: rgba(255, 107, 107, 0.4);
         }
 
-        /* ===== Animations ===== */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* ===================================================== */
-        /* ===== RESPONSIVE + MOBILE REFINEMENTS ============== */
+        /* ===== RESPONSIVE ==================================== */
         /* ===================================================== */
 
         @media (max-width: 768px) {
-            .app {
-                padding: 28px 20px 60px;
-            }
+            .app { padding: 28px 20px 60px; }
+            .topbar { margin-bottom: 20px; padding-bottom: 16px; }
+            .topbar-left h1 { font-size: 18px; }
+            .topbar-left .month-badge { font-size: 15px; }
+            .tabs { margin-bottom: 24px; }
+            .tab-btn { font-size: 13px; padding: 10px 14px; }
 
-            .topbar {
-                margin-bottom: 32px;
-                padding-bottom: 16px;
-            }
+            .hero { margin-bottom: 40px; }
+            .hero-main { gap: 28px; }
+            .hero-total .amount { font-size: 44px; letter-spacing: -1.8px; }
+            .hero-total .amount .currency { font-size: 24px; }
+            .hero-stats { min-width: 100%; gap: 16px; }
+            .hero-stats .stat .stat-value { font-size: 17px; }
 
-            .topbar-left h1 {
-                font-size: 15px;
-            }
+            .add-section, .chart-section { margin-bottom: 40px; padding-bottom: 32px; }
+            .add-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .add-grid .field:nth-child(4) { grid-column: span 2; }
+            .add-btn { grid-column: span 2; width: 100%; height: 46px; }
 
-            .topbar-left .month-badge {
-                font-size: 12px;
-            }
+            .chart-body { grid-template-columns: 1fr; gap: 24px; }
+            .chart-wrap { width: 160px; height: 160px; margin: 0 auto; }
 
-            .hero {
-                margin-bottom: 40px;
-            }
+            .filters { gap: 18px; row-gap: 14px; }
+            .filters .reset-btn { margin-left: 0; }
+            .filters .count { margin-left: auto; }
 
-            .hero-main {
-                gap: 28px;
-            }
-
-            .hero-total .amount {
-                font-size: 44px;
-                letter-spacing: -1.8px;
-            }
-
-            .hero-total .amount .currency {
-                font-size: 24px;
-            }
-
-            .hero-stats {
-                min-width: 100%;
-                gap: 16px;
-            }
-
-            .hero-stats .stat .stat-value {
-                font-size: 17px;
-            }
-
-            .add-section,
-            .chart-section {
-                margin-bottom: 40px;
-                padding-bottom: 32px;
-            }
-
-            .add-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-
-            .add-grid .field:nth-child(4) {
-                grid-column: span 2;
-            }
-
-            .add-btn {
-                grid-column: span 2;
-                width: 100%;
-                height: 46px;
-            }
-
-            .chart-body {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .chart-wrap {
-                width: 160px;
-                height: 160px;
-                margin: 0 auto;
-            }
-
-            .filters {
-                gap: 18px;
-                row-gap: 14px;
-            }
-
-            .filters .reset-btn {
-                margin-left: 0;
-            }
-
-            .filters .count {
-                margin-left: auto;
-            }
-
-            .expense-table th {
-                font-size: 10px;
-                padding: 12px 0;
-            }
-
-            .expense-table td {
-                padding: 14px 0;
-                font-size: 13px;
-            }
-
-            .expense-table .date-cell {
-                font-size: 12px;
-            }
-
-            .expense-table .desc-cell {
-                max-width: 110px;
-                font-size: 12px;
-            }
-
-            .expense-table .amount-cell {
-                font-size: 13px;
-            }
-
+            .expense-table th { font-size: 10px; padding: 12px 0; }
+            .expense-table td { padding: 14px 0; font-size: 13px; }
+            .expense-table .date-cell { font-size: 12px; }
+            .expense-table .desc-cell { max-width: 110px; font-size: 12px; }
+            .expense-table .amount-cell { font-size: 13px; }
             .expense-table th.actions-col,
-            .expense-table .actions-cell {
-                width: 80px;
-            }
-
+            .expense-table .actions-cell { width: 80px; }
             .expense-table .action-btn {
-                font-size: 16px;
-                padding: 10px 12px;
-                min-width: 40px;
-                min-height: 40px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
+                font-size: 16px; padding: 10px 12px;
+                min-width: 40px; min-height: 40px;
+                display: inline-flex; align-items: center; justify-content: center;
             }
 
-            .field input,
-            .field select,
-            .edit-field input,
-            .edit-field select {
-                font-size: 16px;
-            }
+            .field input, .field select,
+            .edit-field input, .edit-field select { font-size: 16px; }
 
-            .edit-field {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
+            .edit-field { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .edit-field input, .edit-field select { padding: 10px 12px; }
+            .edit-actions { grid-column: span 2; justify-content: flex-end; }
 
-            .edit-field input,
-            .edit-field select {
-                padding: 10px 12px;
-            }
+            .pagination { gap: 16px; padding: 24px 0 4px; }
 
-            .edit-actions {
-                grid-column: span 2;
-                justify-content: flex-end;
-            }
-
-            .pagination {
-                gap: 16px;
-                padding: 24px 0 4px;
-            }
-
-            .footer {
-                margin-top: 32px;
-                padding-top: 20px;
-            }
+            .graph-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .graph-stat .graph-stat-value { font-size: 18px; }
+            .graph-chart-wrap svg { min-width: 560px; }
         }
 
         @media (max-width: 480px) {
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
+            .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .topbar-right { width: 100%; justify-content: flex-end; }
+            .topbar-left h1 { font-size: 16px; }
+            .topbar-left .month-badge { font-size: 13px; }
+            .tab-btn { font-size: 12px; padding: 9px 12px; }
 
-            .topbar-right {
-                width: 100%;
-                justify-content: flex-end;
-            }
+            .hero-total .amount { font-size: 40px; letter-spacing: -1.6px; }
+            .hero-total .amount .currency { font-size: 22px; }
 
-            .topbar-left h1 {
-                font-size: 15px;
-            }
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+            .hero-stats .stat .stat-label { font-size: 10px; margin-bottom: 4px; letter-spacing: 0.2px; }
+            .hero-stats .stat .stat-value { font-size: 14px; letter-spacing: -0.3px; }
 
-            .hero-total .amount {
-                font-size: 40px;
-                letter-spacing: -1.6px;
-            }
+            .add-grid { grid-template-columns: 1fr; }
+            .add-grid .field:nth-child(4) { grid-column: span 1; }
+            .add-btn { grid-column: span 1; width: 100%; height: 48px; }
 
-            .hero-total .amount .currency {
-                font-size: 22px;
-            }
+            .legend-item { padding: 10px 0; }
+            .legend-name { font-size: 12px; }
+            .legend-amount { font-size: 12px; }
+            .legend-pct { font-size: 11px; min-width: 38px; }
+            .chart-wrap { width: 150px; height: 150px; }
 
-            /* ✅ FIX: Week / Month / Avg-day all on one line */
-            .hero-stats {
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 8px;
-            }
-
-            .hero-stats .stat .stat-label {
-                font-size: 10px;
-                margin-bottom: 4px;
-                letter-spacing: 0.2px;
-            }
-
-            .hero-stats .stat .stat-value {
-                font-size: 14px;
-                letter-spacing: -0.3px;
-            }
-
-            .add-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .add-grid .field:nth-child(4) {
-                grid-column: span 1;
-            }
-
-            .add-btn {
-                grid-column: span 1;
-                width: 100%;
-                height: 48px;
-            }
-
-            .legend-item {
-                padding: 10px 0;
-            }
-
-            .legend-name {
-                font-size: 12px;
-            }
-
-            .legend-amount {
-                font-size: 12px;
-            }
-
-            .legend-pct {
-                font-size: 11px;
-                min-width: 38px;
-            }
-
-            .chart-wrap {
-                width: 150px;
-                height: 150px;
-            }
-
-            /* ✅ FIX: Tighter table spacing so all 5 columns fit including description */
-            .expense-table th {
-                font-size: 9px;
-                letter-spacing: 0.4px;
-                padding: 10px 0;
-            }
-
-            .expense-table td {
-                padding: 12px 0;
-                font-size: 12px;
-            }
-
-            .expense-table .date-cell {
-                font-size: 11px;
-            }
-
-            .expense-table .desc-cell {
-                font-size: 11px;
-                max-width: 75px;
-            }
-
-            .expense-table .amount-cell {
-                font-size: 12px;
-            }
-
-            .expense-table .action-btn {
-                font-size: 14px;
-                padding: 8px 6px;
-                min-width: 36px;
-                min-height: 36px;
-            }
-
+            .expense-table th { font-size: 9px; letter-spacing: 0.4px; padding: 10px 0; }
+            .expense-table td { padding: 12px 0; font-size: 12px; }
+            .expense-table .date-cell { font-size: 11px; }
+            .expense-table .desc-cell { font-size: 11px; max-width: 75px; }
+            .expense-table .amount-cell { font-size: 12px; }
+            .expense-table .action-btn { font-size: 14px; padding: 8px 6px; min-width: 36px; min-height: 36px; }
             .expense-table th.actions-col,
-            .expense-table .actions-cell {
-                width: 72px;
-            }
+            .expense-table .actions-cell { width: 72px; }
+
+            .graph-stats { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .graph-stat .graph-stat-value { font-size: 16px; }
+            .graph-chart-wrap svg { min-width: 520px; }
         }
 
         @media (max-width: 380px) {
-            .app {
-                padding: 24px 16px 48px;
-            }
+            .app { padding: 24px 16px 48px; }
+            .topbar-left h1 { font-size: 14px; }
+            .topbar-left .month-badge { font-size: 11px; }
+            .reset-top-btn { font-size: 11px; padding: 6px 12px; }
 
-            .topbar-left h1 {
-                font-size: 14px;
-            }
+            .hero-total .amount { font-size: 32px; letter-spacing: -1px; }
+            .hero-total .amount .currency { font-size: 18px; }
 
-            .topbar-left .month-badge {
-                font-size: 11px;
-            }
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+            .hero-stats .stat .stat-label { font-size: 9px; }
+            .hero-stats .stat .stat-value { font-size: 12px; letter-spacing: -0.2px; }
 
-            .reset-top-btn {
-                font-size: 11px;
-                padding: 6px 12px;
-            }
+            .filters { gap: 14px; }
+            .filters .count { width: 100%; text-align: right; margin-left: 0; margin-top: 4px; }
 
-            .hero-total .amount {
-                font-size: 32px;
-                letter-spacing: -1px;
-            }
-
-            .hero-total .amount .currency {
-                font-size: 18px;
-            }
-
-            /* ✅ FIX: Still keep Week/Month/Avg on one line */
-            .hero-stats {
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 6px;
-            }
-
-            .hero-stats .stat .stat-label {
-                font-size: 9px;
-            }
-
-            .hero-stats .stat .stat-value {
-                font-size: 12px;
-                letter-spacing: -0.2px;
-            }
-
-            .filters {
-                gap: 14px;
-            }
-
-            .filters .count {
-                width: 100%;
-                text-align: right;
-                margin-left: 0;
-                margin-top: 4px;
-            }
-
-            /* ✅ Keep description visible even on very small screens */
-            .expense-table .desc-cell {
-                max-width: 60px;
-                font-size: 10px;
-            }
-
-            .expense-table .date-cell {
-                font-size: 10px;
-            }
+            .expense-table .desc-cell { max-width: 60px; font-size: 10px; }
+            .expense-table .date-cell { font-size: 10px; }
         }
 
         @media (hover: none) and (pointer: coarse) {
             .expense-table .action-btn {
-                min-width: 40px;
-                min-height: 40px;
-                padding: 10px 10px;
-                font-size: 15px;
+                min-width: 40px; min-height: 40px; padding: 10px 10px; font-size: 15px;
             }
-
-            .add-btn,
-            .save-edit-btn,
-            .cancel-edit-btn {
-                min-height: 44px;
-            }
-
-            .filter-select {
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-            .reset-top-btn {
-                min-height: 36px;
-            }
+            .add-btn, .save-edit-btn, .cancel-edit-btn { min-height: 44px; }
+            .filter-select, .graph-month-select { padding-top: 10px; padding-bottom: 10px; }
+            .reset-top-btn { min-height: 36px; }
         }
     </style>
 </head>
@@ -1173,159 +1108,200 @@
         <!-- ===== TOP BAR ===== -->
         <header class="topbar">
             <div class="topbar-left">
-                <h1>Expense Tracker</h1>
+                <h1>💰Expense Tracker🗓️</h1>
                 <span class="month-badge">
                     <span class="dot"></span>
                     <span id="currentMonthLabel">January 2026</span>
                 </span>
             </div>
             <div class="topbar-right">
-                <button class="reset-top-btn" id="resetBtn">Reset all</button>
+                <button class="reset-top-btn" id="resetBtn">🗑️Reset all</button>
             </div>
         </header>
 
-        <!-- ===== HERO ===== -->
-        <section class="hero">
-            <div class="hero-main">
-                <div class="hero-total">
-                    <div class="label" id="heroLabel">Total</div>
-                    <div class="amount">
-                        <span class="currency">₹</span><span id="heroAmount">0</span>
-                    </div>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-label">Week</div>
-                        <div class="stat-value" id="heroWeek">₹0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Month</div>
-                        <div class="stat-value" id="heroMonth">₹0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Avg / day</div>
-                        <div class="stat-value" id="heroAvg">₹0</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== ADD EXPENSE ===== -->
-        <section class="add-section">
-            <span class="section-label">Add an expense</span>
-            <form id="expenseForm" class="add-grid">
-                <div class="field">
-                    <input type="number" id="amountInput" placeholder="Amount" step="0.01" min="0.01" inputmode="decimal" required />
-                </div>
-                <div class="field">
-                    <select id="categorySelect">
-                        <option value="food">🍔 Food</option>
-                        <option value="grocery">🛒 Grocery</option>
-                        <option value="rent">🏠 Rent</option>
-                        <option value="investment">📈 Investment</option>
-                        <option value="loan">🏦 Loan</option>
-                        <option value="travelling">✈️ Travelling</option>
-                        <option value="shopping">🛍️ Shopping</option>
-                        <option value="entertainment">🎬 Entertainment</option>
-                        <option value="utilities">💡 Utilities</option>
-                        <option value="healthcare">🏥 Healthcare</option>
-                        <option value="education">📚 Education</option>
-                        <option value="insurance">🛡️ Insurance</option>
-                        <option value="subscription">📺 Subscription</option>
-                        <option value="other">📌 Other</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <input type="date" id="dateInput" required />
-                </div>
-                <div class="field">
-                    <input type="text" id="descInput" placeholder="Description (optional)" maxlength="60" />
-                </div>
-                <button type="submit" class="add-btn">Add</button>
-            </form>
-        </section>
-
-        <!-- ===== TOP CATEGORIES CHART ===== -->
-        <section class="chart-section">
-            <div class="chart-header">
-                <h2>Top categories</h2>
-                <span class="sub">Based on current filters</span>
-            </div>
-            <div class="chart-body" id="chartBody">
-                <div class="chart-wrap">
-                    <svg id="pieSvg" viewBox="0 0 200 200" aria-label="Expense distribution"></svg>
-                    <div class="chart-center">
-                        <div class="center-label">Total</div>
-                        <div class="center-value" id="chartTotalValue">₹0</div>
-                    </div>
-                </div>
-                <div class="chart-legend" id="pieLegend">
-                    <div class="chart-empty">No data yet</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== FILTERS ===== -->
-        <div class="filters">
-            <select id="filterCategory" class="filter-select">
-                <option value="all">All categories</option>
-                <option value="food">🍔Food</option>
-                <option value="grocery">🛒Grocery</option>
-                <option value="rent">🏠Rent</option>
-                <option value="investment">📈Investment</option>
-                <option value="loan">🏦Loan</option>
-                <option value="travelling">✈️Travelling</option>
-                <option value="shopping">🛍️Shopping</option>
-                <option value="entertainment">🎬Entertainment</option>
-                <option value="utilities">💡Utilities</option>
-                <option value="healthcare">🏥Healthcare</option>
-                <option value="education">📚Education</option>
-                <option value="insurance">🛡️Insurance</option>
-                <option value="subscription">📺Subscription</option>
-                <option value="other">📌Other</option>
-            </select>
-            <select id="filterWeek" class="filter-select">
-                <option value="all">All weeks</option>
-            </select>
-            <select id="filterMonth" class="filter-select">
-                <option value="all">All months</option>
-            </select>
-            <button class="reset-btn" id="clearFiltersBtn">Reset filters</button>
-            <span class="count" id="filterStats">0 items</span>
+        <!-- ===== TABS ===== -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="graph">Monthly graph</button>
         </div>
 
-        <!-- ===== TABLE ===== -->
-        <section class="table-section">
-            <table class="expense-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th class="desc-col">Description</th>
-                        <th class="amount-col">Amount</th>
-                        <th class="actions-col"></th>
-                    </tr>
-                </thead>
-                <tbody id="expenseBody">
-                    <tr class="empty-row"><td colspan="5">No expenses yet</td></tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- ===== OVERVIEW TAB ===== -->
+        <div class="tab-content active" id="tab-overview">
 
-        <!-- ===== PAGINATION ===== -->
-        <div class="pagination">
-            <button class="page-btn" id="prevPageBtn">← Previous</button>
-            <span class="page-info" id="pageInfo">1 / 1</span>
-            <button class="page-btn" id="nextPageBtn">Next →</button>
+            <section class="hero">
+                <div class="hero-main">
+                    <div class="hero-total">
+                        <div class="label" id="heroLabel">Total</div>
+                        <div class="amount">
+                            <span class="currency">₹</span><span id="heroAmount">0</span>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-label">Week</div>
+                            <div class="stat-value" id="heroWeek">₹0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Month</div>
+                            <div class="stat-value" id="heroMonth">₹0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Avg / day</div>
+                            <div class="stat-value" id="heroAvg">₹0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="add-section">
+                <span class="section-label">Add an expense</span>
+                <form id="expenseForm" class="add-grid">
+                    <div class="field">
+                        <input type="number" id="amountInput" placeholder="Amount" step="0.01" min="0.01" inputmode="decimal" required />
+                    </div>
+                    <div class="field">
+                        <select id="categorySelect">
+                            <option value="food">🍔 Food</option>
+                            <option value="grocery">🛒 Grocery</option>
+                            <option value="rent">🏠 Rent</option>
+                            <option value="investment">📈 Investment</option>
+                            <option value="loan">🏦 Loan</option>
+                            <option value="travelling">✈️ Travelling</option>
+                            <option value="shopping">🛍️ Shopping</option>
+                            <option value="entertainment">🎬 Entertainment</option>
+                            <option value="utilities">💡 Utilities</option>
+                            <option value="healthcare">🏥 Healthcare</option>
+                            <option value="education">📚 Education</option>
+                            <option value="insurance">🛡️ Insurance</option>
+                            <option value="subscription">📺 Subscription</option>
+                            <option value="other">📌 Other</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <input type="date" id="dateInput" required />
+                    </div>
+                    <div class="field">
+                        <input type="text" id="descInput" placeholder="Description (optional)" maxlength="60" />
+                    </div>
+                    <button type="submit" class="add-btn">Add</button>
+                </form>
+            </section>
+
+            <section class="chart-section">
+                <div class="chart-header">
+                    <h2>Top categories</h2>
+                    <span class="sub">Based on current filters</span>
+                </div>
+                <div class="chart-body" id="chartBody">
+                    <div class="chart-wrap">
+                        <svg id="pieSvg" viewBox="0 0 200 200" aria-label="Expense distribution"></svg>
+                        <div class="chart-center">
+                            <div class="center-label">Total</div>
+                            <div class="center-value" id="chartTotalValue">₹0</div>
+                        </div>
+                    </div>
+                    <div class="chart-legend" id="pieLegend">
+                        <div class="chart-empty">No data yet</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="filters">
+                <select id="filterCategory" class="filter-select">
+                    <option value="all">All categories</option>
+                    <option value="food">🍔Food</option>
+                    <option value="grocery">🛒Grocery</option>
+                    <option value="rent">🏠Rent</option>
+                    <option value="investment">📈Investment</option>
+                    <option value="loan">🏦Loan</option>
+                    <option value="travelling">✈️Travelling</option>
+                    <option value="shopping">🛍️Shopping</option>
+                    <option value="entertainment">🎬Entertainment</option>
+                    <option value="utilities">💡Utilities</option>
+                    <option value="healthcare">🏥Healthcare</option>
+                    <option value="education">📚Education</option>
+                    <option value="insurance">🛡️Insurance</option>
+                    <option value="subscription">📺Subscription</option>
+                    <option value="other">📌Other</option>
+                </select>
+                <select id="filterWeek" class="filter-select">
+                    <option value="all">All weeks</option>
+                </select>
+                <select id="filterMonth" class="filter-select">
+                    <option value="all">All months</option>
+                </select>
+                <button class="reset-btn" id="clearFiltersBtn">Reset filters</button>
+                <span class="count" id="filterStats">0 items</span>
+            </div>
+
+            <section class="table-section">
+                <table class="expense-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th class="desc-col">Description</th>
+                            <th class="amount-col">Amount</th>
+                            <th class="actions-col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseBody">
+                        <tr class="empty-row"><td colspan="5">No expenses yet</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="pagination">
+                <button class="page-btn" id="prevPageBtn">← Previous</button>
+                <span class="page-info" id="pageInfo">1 / 1</span>
+                <button class="page-btn" id="nextPageBtn">Next →</button>
+            </div>
         </div>
 
-        <!-- ===== FOOTER ===== -->
+        <!-- ===== MONTHLY GRAPH TAB ===== -->
+        <div class="tab-content" id="tab-graph">
+            <section class="graph-section">
+                <div class="graph-header">
+                    <h2>Daily spending</h2>
+                    <select id="graphMonthSelect" class="graph-month-select"></select>
+                </div>
+
+                <div class="graph-stats" id="graphStats">
+                    <div class="graph-stat">
+                        <div class="graph-stat-label">Month total</div>
+                        <div class="graph-stat-value" id="graphTotal">₹0</div>
+                        <div class="graph-stat-sub" id="graphTotalSub">—</div>
+                    </div>
+                    <div class="graph-stat">
+                        <div class="graph-stat-label">Avg / day</div>
+                        <div class="graph-stat-value" id="graphAvg">₹0</div>
+                        <div class="graph-stat-sub">Across all days</div>
+                    </div>
+                    <div class="graph-stat">
+                        <div class="graph-stat-label">Highest day</div>
+                        <div class="graph-stat-value" id="graphHighest">₹0</div>
+                        <div class="graph-stat-sub" id="graphHighestDay">—</div>
+                    </div>
+                    <div class="graph-stat">
+                        <div class="graph-stat-label">Active days</div>
+                        <div class="graph-stat-value" id="graphActiveDays">0</div>
+                        <div class="graph-stat-sub" id="graphActiveSub">No spending</div>
+                    </div>
+                </div>
+
+                <div class="graph-chart-wrap">
+                    <svg id="graphSvg" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid meet" aria-label="Daily spending line chart"></svg>
+                </div>
+
+                <div id="graphEmpty" class="graph-empty" style="display:none;">No expenses recorded for this month</div>
+            </section>
+        </div>
+
         <div class="footer">
             Data saved locally in your browser
         </div>
     </div>
 
-    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
@@ -1334,20 +1310,20 @@
 
             // ===== CONSTANTS =====
             const CATEGORY_COLORS = {
-                food: '#d97757',
+                food: '#D45424',
                 grocery: '#7fa17f',
-                rent: '#c9a86a',
-                investment: '#8fb87f',
+                rent: '#C7A158',
+                investment: '#CC142F',
                 loan: '#c98a8a',
-                travelling: '#7a9bc9',
-                shopping: '#c98ab8',
+                travelling: '#98C2FA',
+                shopping: '#6247BA',
                 entertainment: '#d9a86a',
-                utilities: '#7fb8bf',
+                utilities: '#9FC42B',
                 healthcare: '#c98ab8',
                 education: '#b88ab8',
                 insurance: '#8ab8d9',
                 subscription: '#a88ac9',
-                other: '#8a8a8a'
+                other: '#424F4F'
             };
 
             const CATEGORY_NAMES = {
@@ -1400,6 +1376,22 @@
             const chartTotalValue = document.getElementById('chartTotalValue');
             const currentMonthLabel = document.getElementById('currentMonthLabel');
 
+            // Graph refs
+            const graphMonthSelect = document.getElementById('graphMonthSelect');
+            const graphSvg = document.getElementById('graphSvg');
+            const graphTotal = document.getElementById('graphTotal');
+            const graphTotalSub = document.getElementById('graphTotalSub');
+            const graphAvg = document.getElementById('graphAvg');
+            const graphHighest = document.getElementById('graphHighest');
+            const graphHighestDay = document.getElementById('graphHighestDay');
+            const graphActiveDays = document.getElementById('graphActiveDays');
+            const graphActiveSub = document.getElementById('graphActiveSub');
+            const graphEmpty = document.getElementById('graphEmpty');
+
+            // Tab refs
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
             // ===== HELPERS =====
             function todayStr() { return new Date().toISOString().slice(0, 10); }
 
@@ -1413,6 +1405,13 @@
                     ? { minimumFractionDigits: decimals, maximumFractionDigits: decimals }
                     : { maximumFractionDigits: 0 };
                 return n.toLocaleString('en-IN', options);
+            }
+
+            // Compact amount for chart labels (₹1.5k, ₹2L, ₹850)
+            function formatCompactAmount(n) {
+                if (n >= 100000) return (n / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+                return Math.round(n).toString();
             }
 
             function getWeekNumber(d) {
@@ -1439,6 +1438,11 @@
             function getMonthLabel(d) {
                 const date = new Date(d + 'T00:00:00');
                 return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            }
+
+            function getMonthLabelLong(d) {
+                const date = new Date(d + 'T00:00:00');
+                return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
             }
 
             function getCurrentMonthLabel() {
@@ -1625,6 +1629,190 @@
                 chartTotalValue.textContent = '₹' + formatAmount(grandTotal);
             }
 
+            // ===== MONTHLY LINE GRAPH =====
+            function populateGraphMonthOptions() {
+                const monthSet = new Set();
+                for (const e of expenses) monthSet.add(getMonthKey(e.date));
+                monthSet.add(getTodayMonthKey());
+                const monthKeys = Array.from(monthSet).sort().reverse();
+
+                const prevVal = graphMonthSelect.value;
+                graphMonthSelect.innerHTML = '';
+                for (const mk of monthKeys) {
+                    const label = getMonthLabelLong(mk + '-01');
+                    graphMonthSelect.innerHTML += `<option value="${mk}">${label}</option>`;
+                }
+
+                const currentMonth = getTodayMonthKey();
+                if (prevVal && graphMonthSelect.querySelector(`option[value="${prevVal}"]`)) {
+                    graphMonthSelect.value = prevVal;
+                } else if (graphMonthSelect.querySelector(`option[value="${currentMonth}"]`)) {
+                    graphMonthSelect.value = currentMonth;
+                } else if (monthKeys.length > 0) {
+                    graphMonthSelect.value = monthKeys[0];
+                }
+            }
+
+            function renderMonthlyGraph() {
+                const monthKey = graphMonthSelect.value;
+                if (!monthKey) return;
+
+                const [yearStr, monthStr] = monthKey.split('-');
+                const year = parseInt(yearStr);
+                const month = parseInt(monthStr);
+                const daysInMonth = new Date(year, month, 0).getDate();
+
+                // Aggregate by day
+                const dayTotals = new Array(daysInMonth + 1).fill(0);
+                const monthExpenses = expenses.filter(e => getMonthKey(e.date) === monthKey);
+                for (const e of monthExpenses) {
+                    const day = parseInt(e.date.split('-')[2]);
+                    if (day >= 1 && day <= daysInMonth) {
+                        dayTotals[day] += e.amount;
+                    }
+                }
+
+                const totalAmount = dayTotals.reduce((s, x) => s + x, 0);
+                const activeDays = dayTotals.filter(x => x > 0).length;
+                const maxAmount = Math.max(1, ...dayTotals.slice(1));
+                let maxDay = 0;
+                for (let d = 1; d <= daysInMonth; d++) {
+                    if (dayTotals[d] === maxAmount) { maxDay = d; break; }
+                }
+                const avgPerDay = totalAmount / daysInMonth;
+
+                // Update stats
+                graphTotal.textContent = '₹' + formatAmount(totalAmount);
+                graphTotalSub.textContent = getMonthLabelLong(monthKey + '-01');
+                graphAvg.textContent = '₹' + formatAmount(avgPerDay);
+                graphHighest.textContent = '₹' + formatAmount(maxAmount === 1 && totalAmount === 0 ? 0 : maxAmount);
+                graphHighestDay.textContent = maxDay > 0 && totalAmount > 0 ? `Day ${maxDay}` : '—';
+                graphActiveDays.textContent = activeDays;
+                graphActiveSub.textContent = activeDays > 0
+                    ? `${activeDays} of ${daysInMonth} days`
+                    : 'No spending';
+
+                if (totalAmount === 0) {
+                    graphSvg.innerHTML = '';
+                    graphSvg.style.display = 'none';
+                    graphEmpty.style.display = 'block';
+                    return;
+                }
+                graphSvg.style.display = 'block';
+                graphEmpty.style.display = 'none';
+
+                // ===== Build SVG line chart =====
+                const W = 800, H = 280;
+                const padL = 58, padR = 22, padT = 44, padB = 36;
+                const chartW = W - padL - padR;
+                const chartH = H - padT - padB;
+                const stepX = chartW / (daysInMonth - 1 || 1);
+
+                const xFor = (day) => padL + (day - 1) * stepX;
+                const yFor = (amount) => padT + chartH - (amount / maxAmount) * chartH;
+
+                let svg = '';
+
+                // Defs: line gradient + area fill gradient
+                svg += `<defs>
+                    <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#7c5cff"/>
+                        <stop offset="50%" stop-color="#a78bfa"/>
+                        <stop offset="100%" stop-color="#22d3ee"/>
+                    </linearGradient>
+                    <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#7c5cff" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>`;
+
+                // Grid lines + Y-axis labels
+                const gridSteps = 4;
+                for (let i = 0; i <= gridSteps; i++) {
+                    const y = padT + (chartH * i / gridSteps);
+                    const value = maxAmount * (gridSteps - i) / gridSteps;
+                    svg += `<line x1="${padL}" y1="${y.toFixed(2)}" x2="${W - padR}" y2="${y.toFixed(2)}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+                    svg += `<text x="${padL - 10}" y="${(y + 3).toFixed(2)}" fill="#8a8a8a" font-size="10" text-anchor="end" font-family="Inter, sans-serif">₹${formatCompactAmount(value)}</text>`;
+                }
+
+                // Build points
+                const points = [];
+                for (let day = 1; day <= daysInMonth; day++) {
+                    points.push({
+                        day,
+                        amount: dayTotals[day],
+                        x: xFor(day),
+                        y: yFor(dayTotals[day])
+                    });
+                }
+
+                // Area path
+                let areaPath = `M ${points[0].x.toFixed(2)} ${(padT + chartH).toFixed(2)} `;
+                areaPath += `L ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)} `;
+                for (let i = 1; i < points.length; i++) {
+                    areaPath += `L ${points[i].x.toFixed(2)} ${points[i].y.toFixed(2)} `;
+                }
+                areaPath += `L ${points[points.length - 1].x.toFixed(2)} ${(padT + chartH).toFixed(2)} Z`;
+
+                // Line path
+                let linePath = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)} `;
+                for (let i = 1; i < points.length; i++) {
+                    linePath += `L ${points[i].x.toFixed(2)} ${points[i].y.toFixed(2)} `;
+                }
+
+                // Area fill
+                svg += `<path d="${areaPath}" fill="url(#lineFill)"/>`;
+
+                // Line
+                svg += `<path d="${linePath}" fill="none" stroke="url(#lineStroke)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" class="graph-line"/>`;
+
+                // Data points + amount labels
+                const showAllLabels = daysInMonth <= 15;
+                const avgAmount = totalAmount / daysInMonth;
+
+                points.forEach((p, i) => {
+                    if (p.amount <= 0) return;
+                    const isMax = (p.amount === maxAmount);
+                    const r = isMax ? 4.5 : 3;
+                    const fill = isMax ? '#d4c4ff' : '#a78bfa';
+
+                    svg += `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${r}" fill="${fill}" stroke="#0a0a0a" stroke-width="1.5" class="graph-point" style="animation-delay:${i * 0.02}s; transform-origin: ${p.x}px ${p.y}px;">
+                        <title>Day ${p.day}: ₹${formatAmount(p.amount, 2)}</title>
+                    </circle>`;
+
+                    // Show label for: the max, all points (if month is short), or points above average
+                    const shouldShowLabel = isMax || showAllLabels || p.amount >= avgAmount;
+                    if (shouldShowLabel) {
+                        const labelY = p.y - (isMax ? 12 : 10);
+                        const labelText = '₹' + formatCompactAmount(p.amount);
+                        const labelColor = isMax ? '#d4c4ff' : '#b8b3c7';
+                        const fontWeight = isMax ? 700 : 500;
+                        const fontSize = isMax ? 11 : 10;
+
+                        // Prevent labels from clipping at edges
+                        let anchor = 'middle';
+                        if (p.day === 1) anchor = 'start';
+                        if (p.day === daysInMonth) anchor = 'end';
+
+                        svg += `<text x="${p.x.toFixed(2)}" y="${labelY.toFixed(2)}" fill="${labelColor}" font-size="${fontSize}" font-weight="${fontWeight}" text-anchor="${anchor}" font-family="Inter, sans-serif" class="graph-label" style="animation-delay:${0.6 + i * 0.02}s;">${labelText}</text>`;
+                    }
+                });
+
+                // X-axis labels
+                const stepLabel = daysInMonth > 25 ? 5 : (daysInMonth > 15 ? 3 : 1);
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const showLabel = day === 1 || day === daysInMonth || day % stepLabel === 0;
+                    if (!showLabel) continue;
+                    const x = xFor(day);
+                    svg += `<text x="${x.toFixed(2)}" y="${H - padB + 18}" fill="#5a5a5a" font-size="10" text-anchor="middle" font-family="Inter, sans-serif">${day}</text>`;
+                }
+
+                // Baseline
+                svg += `<line x1="${padL}" y1="${(padT + chartH).toFixed(2)}" x2="${W - padR}" y2="${(padT + chartH).toFixed(2)}" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>`;
+
+                graphSvg.innerHTML = svg;
+            }
+
             // ===== RENDER =====
             function render() {
                 currentMonthLabel.textContent = getCurrentMonthLabel();
@@ -1645,6 +1833,10 @@
                 renderFilterStats();
                 renderPagination(totalItems, totalPages);
                 renderPieChart();
+
+                // Graph
+                populateGraphMonthOptions();
+                renderMonthlyGraph();
             }
 
             function renderHero() {
@@ -1864,6 +2056,20 @@
                 }, 2200);
             }
 
+            // ===== TAB SWITCHING =====
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    tabBtns.forEach(b => b.classList.toggle('active', b === this));
+                    tabContents.forEach(c => {
+                        c.classList.toggle('active', c.id === 'tab-' + tab);
+                    });
+                    if (tab === 'graph') {
+                        renderMonthlyGraph();
+                    }
+                });
+            });
+
             // ===== FORM SUBMIT =====
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1917,6 +2123,11 @@
             filterWeek.addEventListener('change', () => { currentPage = 0; editingId = null; render(); });
             filterMonth.addEventListener('change', () => { currentPage = 0; editingId = null; render(); });
 
+            // ===== GRAPH MONTH CHANGE =====
+            graphMonthSelect.addEventListener('change', function() {
+                renderMonthlyGraph();
+            });
+
             // ===== CLEAR FILTERS =====
             clearFiltersBtn.addEventListener('click', function() {
                 filterCategory.value = 'all';
@@ -1936,7 +2147,7 @@
             // ===== SERVICE WORKER =====
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js?v=8')
+                    navigator.serviceWorker.register('/sw.js?v=9')
                         .then(reg => { console.log('SW registered'); reg.update(); })
                         .catch(err => console.log('SW failed:', err));
                 });
