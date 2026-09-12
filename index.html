@@ -1342,6 +1342,7 @@
 
             const STORAGE_KEY = 'expenseTrackerData';
             const ITEMS_PER_PAGE = 10;
+            const MIN_SCALE = 100; // Minimum Y-axis scale so small amounts are visible
 
             // ===== STATE =====
             let expenses = [];
@@ -1674,10 +1675,17 @@
 
                 const totalAmount = dayTotals.reduce((s, x) => s + x, 0);
                 const activeDays = dayTotals.filter(x => x > 0).length;
-                const maxAmount = Math.max(1, ...dayTotals.slice(1));
+
+                // Actual highest day (used for stats + "max" highlight)
+                const actualMax = Math.max(0, ...dayTotals.slice(1));
+
+                // ✅ Scale for Y-axis (never smaller than MIN_SCALE so tiny amounts are visible)
+                const scaleMax = Math.max(MIN_SCALE, actualMax);
+
+                // Find highest day
                 let maxDay = 0;
                 for (let d = 1; d <= daysInMonth; d++) {
-                    if (dayTotals[d] === maxAmount) { maxDay = d; break; }
+                    if (dayTotals[d] === actualMax && actualMax > 0) { maxDay = d; break; }
                 }
                 const avgPerDay = totalAmount / daysInMonth;
 
@@ -1685,8 +1693,8 @@
                 graphTotal.textContent = '₹' + formatAmount(totalAmount);
                 graphTotalSub.textContent = getMonthLabelLong(monthKey + '-01');
                 graphAvg.textContent = '₹' + formatAmount(avgPerDay);
-                graphHighest.textContent = '₹' + formatAmount(maxAmount === 1 && totalAmount === 0 ? 0 : maxAmount);
-                graphHighestDay.textContent = maxDay > 0 && totalAmount > 0 ? `Day ${maxDay}` : '—';
+                graphHighest.textContent = '₹' + formatAmount(actualMax);
+                graphHighestDay.textContent = maxDay > 0 ? `Day ${maxDay}` : '—';
                 graphActiveDays.textContent = activeDays;
                 graphActiveSub.textContent = activeDays > 0
                     ? `${activeDays} of ${daysInMonth} days`
@@ -1703,17 +1711,17 @@
 
                 // ===== Build SVG line chart =====
                 const W = 800, H = 280;
-                const padL = 58, padR = 22, padT = 44, padB = 36;
+                const padL = 62, padR = 22, padT = 48, padB = 36;
                 const chartW = W - padL - padR;
                 const chartH = H - padT - padB;
                 const stepX = chartW / (daysInMonth - 1 || 1);
 
                 const xFor = (day) => padL + (day - 1) * stepX;
-                const yFor = (amount) => padT + chartH - (amount / maxAmount) * chartH;
+                const yFor = (amount) => padT + chartH - (amount / scaleMax) * chartH;
 
                 let svg = '';
 
-                // Defs: line gradient + area fill gradient
+                // Defs
                 svg += `<defs>
                     <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stop-color="#7c5cff"/>
@@ -1726,11 +1734,11 @@
                     </linearGradient>
                 </defs>`;
 
-                // Grid lines + Y-axis labels
+                // Grid lines + Y-axis labels (based on scaleMax, which is >= 100)
                 const gridSteps = 4;
                 for (let i = 0; i <= gridSteps; i++) {
                     const y = padT + (chartH * i / gridSteps);
-                    const value = maxAmount * (gridSteps - i) / gridSteps;
+                    const value = scaleMax * (gridSteps - i) / gridSteps;
                     svg += `<line x1="${padL}" y1="${y.toFixed(2)}" x2="${W - padR}" y2="${y.toFixed(2)}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
                     svg += `<text x="${padL - 10}" y="${(y + 3).toFixed(2)}" fill="#8a8a8a" font-size="10" text-anchor="end" font-family="Inter, sans-serif">₹${formatCompactAmount(value)}</text>`;
                 }
@@ -1760,19 +1768,16 @@
                     linePath += `L ${points[i].x.toFixed(2)} ${points[i].y.toFixed(2)} `;
                 }
 
-                // Area fill
+                // Area fill + line
                 svg += `<path d="${areaPath}" fill="url(#lineFill)"/>`;
-
-                // Line
                 svg += `<path d="${linePath}" fill="none" stroke="url(#lineStroke)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" class="graph-line"/>`;
 
-                // Data points + amount labels
+                // Data points + labels
                 const showAllLabels = daysInMonth <= 15;
-                const avgAmount = totalAmount / daysInMonth;
 
                 points.forEach((p, i) => {
                     if (p.amount <= 0) return;
-                    const isMax = (p.amount === maxAmount);
+                    const isMax = (p.amount === actualMax && actualMax > 0);
                     const r = isMax ? 4.5 : 3;
                     const fill = isMax ? '#d4c4ff' : '#a78bfa';
 
@@ -1780,8 +1785,9 @@
                         <title>Day ${p.day}: ₹${formatAmount(p.amount, 2)}</title>
                     </circle>`;
 
-                    // Show label for: the max, all points (if month is short), or points above average
-                    const shouldShowLabel = isMax || showAllLabels || p.amount >= avgAmount;
+                    // ✅ Label logic: always show for max OR short months OR amounts >= 100 OR above average
+                    const shouldShowLabel = isMax || showAllLabels || p.amount >= 100 || p.amount >= avgPerDay;
+
                     if (shouldShowLabel) {
                         const labelY = p.y - (isMax ? 12 : 10);
                         const labelText = '₹' + formatCompactAmount(p.amount);
@@ -1789,7 +1795,7 @@
                         const fontWeight = isMax ? 700 : 500;
                         const fontSize = isMax ? 11 : 10;
 
-                        // Prevent labels from clipping at edges
+                        // Prevent clipping at left/right edges
                         let anchor = 'middle';
                         if (p.day === 1) anchor = 'start';
                         if (p.day === daysInMonth) anchor = 'end';
