@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link rel="manifest" href="/manifest.json?v=8">
+    <link rel="manifest" href="/manifest.json?v=9">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -139,6 +139,8 @@
             margin-bottom: 32px;
             border-bottom: 0.5px solid var(--border);
             animation: fadeUp 0.5s ease-out 0.03s backwards;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .tab-btn {
@@ -154,6 +156,7 @@
             border-bottom: 2px solid transparent;
             margin-bottom: -1px;
             letter-spacing: 0.2px;
+            white-space: nowrap;
         }
 
         .tab-btn:hover {
@@ -925,6 +928,204 @@
             font-size: 13px;
         }
 
+        /* ===== History Tab ===== */
+        .history-section {
+            animation: fadeUp 0.4s ease-out;
+        }
+
+        .history-intro {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .history-month {
+            margin-bottom: 20px;
+            border: 0.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .history-month:hover {
+            border-color: var(--border-strong);
+        }
+
+        .history-month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            cursor: pointer;
+            gap: 16px;
+            flex-wrap: wrap;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .history-month-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .history-month-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .history-month-toggle {
+            color: var(--text-muted);
+            font-size: 12px;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        .history-month.collapsed .history-month-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .history-month-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .history-month-badge {
+            font-size: 10px;
+            font-weight: 600;
+            color: #a78bfa;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: rgba(124, 92, 255, 0.15);
+            border: 0.5px solid rgba(124, 92, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .history-month-stats {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .history-month-total {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.4px;
+            font-feature-settings: 'tnum' 1;
+        }
+
+        .history-month-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .history-month-body {
+            padding: 0 20px 16px;
+            border-top: 0.5px solid var(--border);
+            animation: fadeUp 0.25s ease-out;
+        }
+
+        .history-month.collapsed .history-month-body {
+            display: none;
+        }
+
+        .history-expense-row {
+            display: grid;
+            grid-template-columns: 70px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 0.5px solid var(--border);
+            font-size: 13px;
+        }
+
+        .history-expense-row:last-child {
+            border-bottom: none;
+        }
+
+        .history-row-date {
+            color: var(--text-secondary);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .history-row-main {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .history-row-category {
+            color: var(--text-primary);
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .history-row-desc {
+            color: var(--text-secondary);
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .history-row-amount {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-align: right;
+            white-space: nowrap;
+            font-feature-settings: 'tnum' 1;
+        }
+
+        .history-month-footer {
+            padding: 12px 20px 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-top: 0.5px solid var(--border);
+        }
+
+        .history-action-btn {
+            background: transparent;
+            border: 0.5px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-family: var(--font-sans);
+            padding: 6px 14px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.2px;
+        }
+
+        .history-action-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-strong);
+            background: var(--surface-1);
+        }
+
         /* ===== Footer ===== */
         .footer {
             margin-top: 40px;
@@ -1031,6 +1232,14 @@
             .graph-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
             .graph-stat .graph-stat-value { font-size: 18px; }
             .graph-chart-wrap svg { min-width: 560px; }
+
+            .history-month-header { padding: 14px 16px; }
+            .history-month-name { font-size: 15px; }
+            .history-month-total { font-size: 16px; }
+            .history-month-body { padding: 0 16px 12px; }
+            .history-expense-row { grid-template-columns: 60px 1fr auto; gap: 10px; padding: 10px 0; font-size: 12px; }
+            .history-row-date { font-size: 11px; }
+            .history-month-footer { padding: 12px 16px 14px; }
         }
 
         @media (max-width: 480px) {
@@ -1069,6 +1278,10 @@
             .graph-stats { grid-template-columns: 1fr 1fr; gap: 14px; }
             .graph-stat .graph-stat-value { font-size: 16px; }
             .graph-chart-wrap svg { min-width: 520px; }
+
+            .history-month-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .history-month-stats { width: 100%; justify-content: space-between; }
+            .history-expense-row { grid-template-columns: 55px 1fr auto; gap: 8px; }
         }
 
         @media (max-width: 380px) {
@@ -1089,6 +1302,8 @@
 
             .expense-table .desc-cell { max-width: 60px; font-size: 10px; }
             .expense-table .date-cell { font-size: 10px; }
+
+            .history-row-desc { display: none; }
         }
 
         @media (hover: none) and (pointer: coarse) {
@@ -1098,6 +1313,7 @@
             .add-btn, .save-edit-btn, .cancel-edit-btn { min-height: 44px; }
             .filter-select, .graph-month-select { padding-top: 10px; padding-bottom: 10px; }
             .reset-top-btn { min-height: 36px; }
+            .history-action-btn { min-height: 36px; }
         }
     </style>
 </head>
@@ -1123,15 +1339,16 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="overview">Overview</button>
             <button class="tab-btn" data-tab="graph">Monthly graph</button>
+            <button class="tab-btn" data-tab="history">History</button>
         </div>
 
-        <!-- ===== OVERVIEW TAB ===== -->
+        <!-- ===== OVERVIEW TAB (current month only) ===== -->
         <div class="tab-content active" id="tab-overview">
 
             <section class="hero">
                 <div class="hero-main">
                     <div class="hero-total">
-                        <div class="label" id="heroLabel">Total</div>
+                        <div class="label" id="heroLabel">This month</div>
                         <div class="amount">
                             <span class="currency">₹</span><span id="heroAmount">0</span>
                         </div>
@@ -1190,7 +1407,7 @@
             <section class="chart-section">
                 <div class="chart-header">
                     <h2>Top categories</h2>
-                    <span class="sub">Based on current filters</span>
+                    <span class="sub">This month</span>
                 </div>
                 <div class="chart-body" id="chartBody">
                     <div class="chart-wrap">
@@ -1226,9 +1443,6 @@
                 </select>
                 <select id="filterWeek" class="filter-select">
                     <option value="all">All weeks</option>
-                </select>
-                <select id="filterMonth" class="filter-select">
-                    <option value="all">All months</option>
                 </select>
                 <button class="reset-btn" id="clearFiltersBtn">Reset filters</button>
                 <span class="count" id="filterStats">0 items</span>
@@ -1297,6 +1511,19 @@
             </section>
         </div>
 
+        <!-- ===== HISTORY TAB ===== -->
+        <div class="tab-content" id="tab-history">
+            <section class="history-section">
+                <p class="history-intro">
+                    All your past months are saved here. Click any month to expand and view its expenses.
+                </p>
+                <div id="historyList"></div>
+                <div id="historyEmpty" class="history-empty" style="display:none;">
+                    No previous months yet. Start adding expenses to build your history.
+                </div>
+            </section>
+        </div>
+
         <div class="footer">
             Data saved locally in your browser
         </div>
@@ -1342,13 +1569,14 @@
 
             const STORAGE_KEY = 'expenseTrackerData';
             const ITEMS_PER_PAGE = 10;
-            const MIN_SCALE = 100; // Minimum Y-axis scale so small amounts are visible
+            const MIN_SCALE = 100;
 
             // ===== STATE =====
             let expenses = [];
             let filteredExpenses = [];
             let editingId = null;
             let currentPage = 0;
+            let expandedMonths = new Set(); // which history months are expanded
 
             // ===== DOM REFS =====
             const form = document.getElementById('expenseForm');
@@ -1364,7 +1592,6 @@
             const heroAvg = document.getElementById('heroAvg');
             const filterCategory = document.getElementById('filterCategory');
             const filterWeek = document.getElementById('filterWeek');
-            const filterMonth = document.getElementById('filterMonth');
             const filterStats = document.getElementById('filterStats');
             const clearFiltersBtn = document.getElementById('clearFiltersBtn');
             const resetBtn = document.getElementById('resetBtn');
@@ -1389,6 +1616,10 @@
             const graphActiveSub = document.getElementById('graphActiveSub');
             const graphEmpty = document.getElementById('graphEmpty');
 
+            // History refs
+            const historyList = document.getElementById('historyList');
+            const historyEmpty = document.getElementById('historyEmpty');
+
             // Tab refs
             const tabBtns = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -1401,6 +1632,11 @@
                 return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             }
 
+            function formatDateFull(d) {
+                const dt = new Date(d + 'T00:00:00');
+                return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+
             function formatAmount(n, decimals) {
                 const options = decimals !== undefined
                     ? { minimumFractionDigits: decimals, maximumFractionDigits: decimals }
@@ -1408,7 +1644,6 @@
                 return n.toLocaleString('en-IN', options);
             }
 
-            // Compact amount for chart labels (₹1.5k, ₹2L, ₹850)
             function formatCompactAmount(n) {
                 if (n >= 100000) return (n / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
                 if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
@@ -1452,6 +1687,7 @@
             }
 
             function getMonthKey(d) { return d.slice(0, 7); }
+            function getCurrentMonthKey() { return getMonthKey(todayStr()); }
 
             function getWeekKey(d) {
                 const date = new Date(d + 'T00:00:00');
@@ -1460,9 +1696,7 @@
             }
 
             function isSameWeek(d1, d2) { return getWeekKey(d1) === getWeekKey(d2); }
-            function isSameMonth(d1, d2) { return getMonthKey(d1) === getMonthKey(d2); }
             function getTodayWeekKey() { return getWeekKey(todayStr()); }
-            function getTodayMonthKey() { return getMonthKey(todayStr()); }
 
             // ===== STORAGE =====
             function loadData() {
@@ -1520,24 +1754,27 @@
                     showToast('Nothing to reset', 'error');
                     return;
                 }
-                if (confirm('Delete all expenses? This cannot be undone.')) {
+                if (confirm('Delete ALL expenses across all months? This cannot be undone.')) {
                     expenses = [];
                     saveData();
                     currentPage = 0;
+                    expandedMonths.clear();
                     render();
                     showToast('All expenses cleared', 'success');
                 }
             }
 
-            // ===== FILTERING =====
+            // ===== FILTERING (scoped to current month) =====
             function getFiltered() {
-                let list = [...expenses];
+                const currentMonth = getCurrentMonthKey();
+                let list = expenses.filter(e => getMonthKey(e.date) === currentMonth);
+
                 const cat = filterCategory.value;
                 if (cat !== 'all') list = list.filter(e => e.category === cat);
+
                 const weekVal = filterWeek.value;
                 if (weekVal !== 'all') list = list.filter(e => getWeekKey(e.date) === weekVal);
-                const monthVal = filterMonth.value;
-                if (monthVal !== 'all') list = list.filter(e => getMonthKey(e.date) === monthVal);
+
                 list.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
                 return list;
             }
@@ -1634,7 +1871,7 @@
             function populateGraphMonthOptions() {
                 const monthSet = new Set();
                 for (const e of expenses) monthSet.add(getMonthKey(e.date));
-                monthSet.add(getTodayMonthKey());
+                monthSet.add(getCurrentMonthKey());
                 const monthKeys = Array.from(monthSet).sort().reverse();
 
                 const prevVal = graphMonthSelect.value;
@@ -1644,7 +1881,7 @@
                     graphMonthSelect.innerHTML += `<option value="${mk}">${label}</option>`;
                 }
 
-                const currentMonth = getTodayMonthKey();
+                const currentMonth = getCurrentMonthKey();
                 if (prevVal && graphMonthSelect.querySelector(`option[value="${prevVal}"]`)) {
                     graphMonthSelect.value = prevVal;
                 } else if (graphMonthSelect.querySelector(`option[value="${currentMonth}"]`)) {
@@ -1663,7 +1900,6 @@
                 const month = parseInt(monthStr);
                 const daysInMonth = new Date(year, month, 0).getDate();
 
-                // Aggregate by day
                 const dayTotals = new Array(daysInMonth + 1).fill(0);
                 const monthExpenses = expenses.filter(e => getMonthKey(e.date) === monthKey);
                 for (const e of monthExpenses) {
@@ -1675,21 +1911,15 @@
 
                 const totalAmount = dayTotals.reduce((s, x) => s + x, 0);
                 const activeDays = dayTotals.filter(x => x > 0).length;
-
-                // Actual highest day (used for stats + "max" highlight)
                 const actualMax = Math.max(0, ...dayTotals.slice(1));
-
-                // ✅ Scale for Y-axis (never smaller than MIN_SCALE so tiny amounts are visible)
                 const scaleMax = Math.max(MIN_SCALE, actualMax);
 
-                // Find highest day
                 let maxDay = 0;
                 for (let d = 1; d <= daysInMonth; d++) {
                     if (dayTotals[d] === actualMax && actualMax > 0) { maxDay = d; break; }
                 }
                 const avgPerDay = totalAmount / daysInMonth;
 
-                // Update stats
                 graphTotal.textContent = '₹' + formatAmount(totalAmount);
                 graphTotalSub.textContent = getMonthLabelLong(monthKey + '-01');
                 graphAvg.textContent = '₹' + formatAmount(avgPerDay);
@@ -1709,7 +1939,6 @@
                 graphSvg.style.display = 'block';
                 graphEmpty.style.display = 'none';
 
-                // ===== Build SVG line chart =====
                 const W = 800, H = 280;
                 const padL = 62, padR = 22, padT = 48, padB = 36;
                 const chartW = W - padL - padR;
@@ -1721,7 +1950,6 @@
 
                 let svg = '';
 
-                // Defs
                 svg += `<defs>
                     <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stop-color="#7c5cff"/>
@@ -1734,7 +1962,6 @@
                     </linearGradient>
                 </defs>`;
 
-                // Grid lines + Y-axis labels (based on scaleMax, which is >= 100)
                 const gridSteps = 4;
                 for (let i = 0; i <= gridSteps; i++) {
                     const y = padT + (chartH * i / gridSteps);
@@ -1743,7 +1970,6 @@
                     svg += `<text x="${padL - 10}" y="${(y + 3).toFixed(2)}" fill="#8a8a8a" font-size="10" text-anchor="end" font-family="Inter, sans-serif">₹${formatCompactAmount(value)}</text>`;
                 }
 
-                // Build points
                 const points = [];
                 for (let day = 1; day <= daysInMonth; day++) {
                     points.push({
@@ -1754,7 +1980,6 @@
                     });
                 }
 
-                // Area path
                 let areaPath = `M ${points[0].x.toFixed(2)} ${(padT + chartH).toFixed(2)} `;
                 areaPath += `L ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)} `;
                 for (let i = 1; i < points.length; i++) {
@@ -1762,17 +1987,14 @@
                 }
                 areaPath += `L ${points[points.length - 1].x.toFixed(2)} ${(padT + chartH).toFixed(2)} Z`;
 
-                // Line path
                 let linePath = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)} `;
                 for (let i = 1; i < points.length; i++) {
                     linePath += `L ${points[i].x.toFixed(2)} ${points[i].y.toFixed(2)} `;
                 }
 
-                // Area fill + line
                 svg += `<path d="${areaPath}" fill="url(#lineFill)"/>`;
                 svg += `<path d="${linePath}" fill="none" stroke="url(#lineStroke)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" class="graph-line"/>`;
 
-                // Data points + labels
                 const showAllLabels = daysInMonth <= 15;
 
                 points.forEach((p, i) => {
@@ -1785,7 +2007,6 @@
                         <title>Day ${p.day}: ₹${formatAmount(p.amount, 2)}</title>
                     </circle>`;
 
-                    // ✅ Label logic: always show for max OR short months OR amounts >= 100 OR above average
                     const shouldShowLabel = isMax || showAllLabels || p.amount >= 100 || p.amount >= avgPerDay;
 
                     if (shouldShowLabel) {
@@ -1795,7 +2016,6 @@
                         const fontWeight = isMax ? 700 : 500;
                         const fontSize = isMax ? 11 : 10;
 
-                        // Prevent clipping at left/right edges
                         let anchor = 'middle';
                         if (p.day === 1) anchor = 'start';
                         if (p.day === daysInMonth) anchor = 'end';
@@ -1804,7 +2024,6 @@
                     }
                 });
 
-                // X-axis labels
                 const stepLabel = daysInMonth > 25 ? 5 : (daysInMonth > 15 ? 3 : 1);
                 for (let day = 1; day <= daysInMonth; day++) {
                     const showLabel = day === 1 || day === daysInMonth || day % stepLabel === 0;
@@ -1813,10 +2032,102 @@
                     svg += `<text x="${x.toFixed(2)}" y="${H - padB + 18}" fill="#5a5a5a" font-size="10" text-anchor="middle" font-family="Inter, sans-serif">${day}</text>`;
                 }
 
-                // Baseline
                 svg += `<line x1="${padL}" y1="${(padT + chartH).toFixed(2)}" x2="${W - padR}" y2="${(padT + chartH).toFixed(2)}" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>`;
 
                 graphSvg.innerHTML = svg;
+            }
+
+            // ===== HISTORY TAB =====
+            function renderHistory() {
+                const currentMonth = getCurrentMonthKey();
+
+                // Group all expenses by month
+                const byMonth = {};
+                for (const e of expenses) {
+                    const mk = getMonthKey(e.date);
+                    if (!byMonth[mk]) byMonth[mk] = [];
+                    byMonth[mk].push(e);
+                }
+
+                // Sort months descending (newest first)
+                const monthKeys = Object.keys(byMonth).sort().reverse();
+
+                if (monthKeys.length === 0) {
+                    historyList.innerHTML = '';
+                    historyEmpty.style.display = 'block';
+                    return;
+                }
+                historyEmpty.style.display = 'none';
+
+                let html = '';
+                for (const mk of monthKeys) {
+                    const items = byMonth[mk];
+                    const monthTotal = items.reduce((s, e) => s + e.amount, 0);
+                    const count = items.length;
+                    const isCurrent = (mk === currentMonth);
+                    const isExpanded = expandedMonths.has(mk);
+
+                    // Sort items by date desc
+                    items.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+
+                    html += `
+                        <div class="history-month ${isExpanded ? '' : 'collapsed'}" data-month="${mk}">
+                            <div class="history-month-header" data-month="${mk}">
+                                <div class="history-month-name-wrap">
+                                    <span class="history-month-toggle">▼</span>
+                                    <span class="history-month-name">${getMonthLabelLong(mk + '-01')}</span>
+                                    ${isCurrent ? '<span class="history-month-badge">Current</span>' : ''}
+                                </div>
+                                <div class="history-month-stats">
+                                    <span class="history-month-total">₹${formatAmount(monthTotal)}</span>
+                                    <span class="history-month-count">${count} item${count !== 1 ? 's' : ''}</span>
+                                </div>
+                            </div>
+                            <div class="history-month-body">
+                                ${items.map(e => `
+                                    <div class="history-expense-row">
+                                        <div class="history-row-date">${formatDate(e.date)}</div>
+                                        <div class="history-row-main">
+                                            <span class="history-row-category">${CATEGORY_EMOJIS[e.category] || '📌'} ${CATEGORY_NAMES[e.category] || e.category}</span>
+                                            ${e.description ? `<span class="history-row-desc">${e.description}</span>` : ''}
+                                        </div>
+                                        <div class="history-row-amount">₹${formatAmount(e.amount, 2)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="history-month-footer">
+                                <button class="history-action-btn view-graph-btn" data-month="${mk}">📈 View in graph</button>
+                            </div>
+                        </div>
+                    `;
+                }
+                historyList.innerHTML = html;
+
+                // Attach click handlers for expand/collapse
+                document.querySelectorAll('.history-month-header').forEach(header => {
+                    header.addEventListener('click', function() {
+                        const mk = this.dataset.month;
+                        if (expandedMonths.has(mk)) {
+                            expandedMonths.delete(mk);
+                        } else {
+                            expandedMonths.add(mk);
+                        }
+                        renderHistory();
+                    });
+                });
+
+                // Attach handlers for "View in graph"
+                document.querySelectorAll('.view-graph-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const mk = this.dataset.month;
+                        graphMonthSelect.value = mk;
+                        // Switch to graph tab
+                        tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === 'graph'));
+                        tabContents.forEach(c => c.classList.toggle('active', c.id === 'tab-graph'));
+                        renderMonthlyGraph();
+                    });
+                });
             }
 
             // ===== RENDER =====
@@ -1840,43 +2151,38 @@
                 renderPagination(totalItems, totalPages);
                 renderPieChart();
 
-                // Graph
                 populateGraphMonthOptions();
                 renderMonthlyGraph();
+
+                renderHistory();
             }
 
             function renderHero() {
                 const total = filteredExpenses.reduce((s, e) => s + e.amount, 0);
                 heroAmount.textContent = formatAmount(total);
 
+                // Hero label = current month name (or category if filtered)
                 const cat = filterCategory.value;
-                const month = filterMonth.value;
-                const week = filterWeek.value;
-                if (cat !== 'all' && month === 'all' && week === 'all') {
+                if (cat !== 'all') {
                     heroLabel.textContent = CATEGORY_NAMES[cat];
-                } else if (month !== 'all' && week === 'all' && cat === 'all') {
-                    heroLabel.textContent = getMonthLabel(month + '-01');
-                } else if (week !== 'all' && month === 'all' && cat === 'all') {
-                    heroLabel.textContent = 'Week ' + week.split('-W')[1];
                 } else {
-                    heroLabel.textContent = 'Total';
+                    heroLabel.textContent = 'This month';
                 }
 
                 const today = todayStr();
-                const weekExp = expenses.filter(e => isSameWeek(e.date, today));
-                const monthExp = expenses.filter(e => isSameMonth(e.date, today));
+                const weekExp = filteredExpenses.filter(e => isSameWeek(e.date, today));
+                const weekSum = weekExp.reduce((s, e) => s + e.amount, 0);
 
-                heroWeek.textContent = '₹' + formatAmount(weekExp.reduce((s, e) => s + e.amount, 0));
-                heroMonth.textContent = '₹' + formatAmount(monthExp.reduce((s, e) => s + e.amount, 0));
+                heroWeek.textContent = '₹' + formatAmount(weekSum);
+                heroMonth.textContent = '₹' + formatAmount(total);
 
-                let avg = 0;
-                if (filteredExpenses.length > 0) {
-                    const dates = filteredExpenses.map(e => e.date).sort();
-                    const first = new Date(dates[0] + 'T00:00:00');
-                    const now = new Date();
-                    const days = Math.max(1, Math.floor((now - first) / (1000 * 60 * 60 * 24)) + 1);
-                    avg = total / days;
-                }
+                // Avg per day for current month so far
+                const currentMonth = getCurrentMonthKey();
+                const monthExp = expenses.filter(e => getMonthKey(e.date) === currentMonth);
+                const monthSum = monthExp.reduce((s, e) => s + e.amount, 0);
+                const todayDate = new Date();
+                const dayOfMonth = todayDate.getDate();
+                const avg = monthSum / dayOfMonth;
                 heroAvg.textContent = '₹' + formatAmount(avg);
             }
 
@@ -1884,7 +2190,7 @@
                 if (pageItems.length === 0) {
                     expenseBody.innerHTML = `
                         <tr class="empty-row">
-                            <td colspan="5">${expenses.length === 0 ? 'No expenses yet' : 'Nothing matches your filters'}</td>
+                            <td colspan="5">${filteredExpenses.length === 0 && expenses.length === 0 ? 'No expenses yet' : (filterCategory.value !== 'all' || filterWeek.value !== 'all' ? 'Nothing matches your filters' : 'No expenses this month yet')}</td>
                         </tr>
                     `;
                     return;
@@ -2011,8 +2317,11 @@
             }
 
             function populateFilterOptions() {
+                const currentMonth = getCurrentMonthKey();
+                const monthExpenses = expenses.filter(e => getMonthKey(e.date) === currentMonth);
+
                 const weekSet = new Set();
-                for (const e of expenses) weekSet.add(getWeekKey(e.date));
+                for (const e of monthExpenses) weekSet.add(getWeekKey(e.date));
                 const weekKeys = Array.from(weekSet).sort();
                 const prevWeekVal = filterWeek.value;
 
@@ -2023,28 +2332,8 @@
                 }
                 if (prevWeekVal === 'all' || filterWeek.querySelector(`option[value="${prevWeekVal}"]`)) {
                     filterWeek.value = prevWeekVal;
-                } else if (weekKeys.length > 0) {
-                    filterWeek.value = weekKeys[weekKeys.length - 1];
                 } else {
                     filterWeek.value = 'all';
-                }
-
-                const monthSet = new Set();
-                for (const e of expenses) monthSet.add(getMonthKey(e.date));
-                const monthKeys = Array.from(monthSet).sort();
-                const prevMonthVal = filterMonth.value;
-
-                filterMonth.innerHTML = '<option value="all">All months</option>';
-                for (const mk of monthKeys) {
-                    const label = getMonthLabel(mk + '-01');
-                    filterMonth.innerHTML += `<option value="${mk}">${label}</option>`;
-                }
-                if (prevMonthVal === 'all' || filterMonth.querySelector(`option[value="${prevMonthVal}"]`)) {
-                    filterMonth.value = prevMonthVal;
-                } else if (monthKeys.length > 0) {
-                    filterMonth.value = monthKeys[monthKeys.length - 1];
-                } else {
-                    filterMonth.value = 'all';
                 }
             }
 
@@ -2072,6 +2361,9 @@
                     });
                     if (tab === 'graph') {
                         renderMonthlyGraph();
+                    }
+                    if (tab === 'history') {
+                        renderHistory();
                     }
                 });
             });
@@ -2127,7 +2419,6 @@
             // ===== FILTER CHANGE =====
             filterCategory.addEventListener('change', () => { currentPage = 0; editingId = null; render(); });
             filterWeek.addEventListener('change', () => { currentPage = 0; editingId = null; render(); });
-            filterMonth.addEventListener('change', () => { currentPage = 0; editingId = null; render(); });
 
             // ===== GRAPH MONTH CHANGE =====
             graphMonthSelect.addEventListener('change', function() {
@@ -2137,10 +2428,7 @@
             // ===== CLEAR FILTERS =====
             clearFiltersBtn.addEventListener('click', function() {
                 filterCategory.value = 'all';
-                const weekOpts = filterWeek.querySelectorAll('option');
-                filterWeek.value = weekOpts.length > 1 ? weekOpts[weekOpts.length - 1].value : 'all';
-                const monthOpts = filterMonth.querySelectorAll('option');
-                filterMonth.value = monthOpts.length > 1 ? monthOpts[monthOpts.length - 1].value : 'all';
+                filterWeek.value = 'all';
                 currentPage = 0;
                 editingId = null;
                 render();
@@ -2153,7 +2441,7 @@
             // ===== SERVICE WORKER =====
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js?v=9')
+                    navigator.serviceWorker.register('/sw.js?v=10')
                         .then(reg => { console.log('SW registered'); reg.update(); })
                         .catch(err => console.log('SW failed:', err));
                 });
